@@ -1,26 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import ReduxProvider from "@/redux/provider/ReduxProvider";
-import ThemeProvider from "@/redux/provider/ThemeProvider";
-import Toast from "@/components/ui/Toast/Toast";
 import { cn } from "@/lib/utils";
 import { Providers } from "./provider";
-import FloatingChat from "@/common/components/FloatingChat";
-import Preloader from "@/common/components/PreLoader";
-import AuthProviders from "@/features/auth/provider/oauth.provider";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-montserrat" });
 
 export const metadata: Metadata = {
   title: "Work Space",
@@ -36,21 +22,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("font-sans !light", inter.variable)}>
+    <html lang="en" className={cn("light", inter.variable, montserrat.variable)}>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        />
+      </head>
       <body
       suppressHydrationWarning={true}
-        className={`${geistSans.variable} ${geistMono.variable} antialiased max-w-360 mx-auto`}
+        className="antialiased max-w-360 mx-auto"
       >
-        <Preloader />
         <ReduxProvider>
           <Providers>
-            <AuthProviders>
-              <ThemeProvider>
-                <Toast />
-                {children}
-              </ThemeProvider>
-            </AuthProviders>
-            <FloatingChat />
+            {children}
           </Providers>
         </ReduxProvider>
       </body>

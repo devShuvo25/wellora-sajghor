@@ -1,9 +1,7 @@
-import ForgetPassword from "@/features/auth/components/ForgetPassword";
+import { AuthPage } from "@/components/AuthPage";
 
 const ForgotPasswordPage = () => {
-  return (
-    <ForgetPassword/>
-  );
+  return <AuthPage mode="forgot" />;
 };
 
 export default ForgotPasswordPage;

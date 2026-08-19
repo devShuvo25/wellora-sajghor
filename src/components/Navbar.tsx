@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Product } from '../types';
+import { ProductCategory } from '../types';
 
 interface NavbarProps {
   cartCount: number;
   onOpenCart: () => void;
   onNavigateToPartner: () => void;
-  onSelectCategory: (category: string | null) => void;
+  onSelectCategory: (category: ProductCategory | null) => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
   onScrollToSection: (sectionId: string) => void;

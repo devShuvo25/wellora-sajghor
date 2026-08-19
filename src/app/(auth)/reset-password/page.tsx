@@ -1,11 +1,7 @@
-import React from "react";
+import { AuthPage } from "@/components/AuthPage";
 
 const ResetPasswordPage = () => {
-  return (
-    <div>
-      <h1>Reset Password</h1>
-    </div>
-  );
+  return <AuthPage mode="reset" />;
 };
 
 export default ResetPasswordPage;

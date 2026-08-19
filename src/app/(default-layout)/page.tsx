@@ -1,4 +1,6 @@
 
+'use client';
+
 import React, { useState } from 'react';
 import {
   Product,
@@ -7,35 +9,35 @@ import {
   DistributorProfile,
   ProductCategory,
   AppView,
-} from './types';
+} from '../../interface/universal';
 import {
   INITIAL_PRODUCTS,
   INITIAL_DISTRIBUTOR,
   INITIAL_ORDERS,
-} from './data/mockData';
+} from '../../data/mockData';
 
 // Storefront components
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { TrustBadges } from './components/TrustBadges';
-import { CategoryStrip } from './components/CategoryStrip';
-import { ProductGrid } from './components/ProductGrid';
-import { DistributorBanner } from './components/DistributorBanner';
-import { Footer } from './components/Footer';
-import { QuickViewModal } from './components/QuickViewModal';
-import { CartDrawer } from './components/CartDrawer';
-import { NotificationToast } from './components/NotificationToast';
+import { Navbar } from '../../components/Navbar';
+import { Hero } from '../../components/Hero';
+import { TrustBadges } from '../../components/TrustBadges';
+import { CategoryStrip } from '../../components/CategoryStrip';
+import { ProductGrid } from '../../components/ProductGrid';
+import { DistributorBanner } from '../../components/DistributorBanner';
+import { Footer } from '../../components/Footer';
+import { QuickViewModal } from '../../components/QuickViewModal';
+import { CartDrawer } from '../../components/CartDrawer';
+import { NotificationToast } from '../../components/NotificationToast';
 
 // Partner Portal components
-import { DistributorSidebar } from './components/portal/DistributorSidebar';
-import { DistributorDashboard } from './components/portal/DistributorDashboard';
-import { MarketingAssetLibrary } from './components/portal/MarketingAssetLibrary';
-import { CreateOrderView } from './components/portal/CreateOrderView';
-import { ReferralLinksView } from './components/portal/ReferralLinksView';
-import { SalesAnalyticsView } from './components/portal/SalesAnalyticsView';
-import { TeamOverridesView } from './components/portal/TeamOverridesView';
-import { WalletModal } from './components/portal/WalletModal';
-import { TrackingModal } from './components/portal/TrackingModal';
+import { DistributorSidebar } from '../../components/portal/DistributorSidebar';
+import { DistributorDashboard } from '../../components/portal/DistributorDashboard';
+import { MarketingAssetLibrary } from '../../components/portal/MarketingAssetLibrary';
+import { CreateOrderView } from '../../components/portal/CreateOrderView';
+import { ReferralLinksView } from '../../components/portal/ReferralLinksView';
+import { SalesAnalyticsView } from '../../components/portal/SalesAnalyticsView';
+import { TeamOverridesView } from '../../components/portal/TeamOverridesView';
+import { WalletModal } from '../../components/portal/WalletModal';
+import { TrackingModal } from '../../components/portal/TrackingModal';
 
 export function App() {
   // Navigation & View State
@@ -209,7 +211,6 @@ export function App() {
             cartCount={cartItems.reduce((acc, i) => acc + i.quantity, 0)}
             onOpenCart={() => setCartOpen(true)}
             onNavigateToPartner={() => setCurrentView('partner-dashboard')}
-            selectedCategory={selectedCategory}
             onSelectCategory={setSelectedCategory}
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}

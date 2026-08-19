@@ -1,9 +1,5 @@
-import LoginPage from "@/features/auth/components/LoginPage";
+import { AuthPage } from "@/components/AuthPage";
 
-export default function page() {
-  return (
-    <div>
-      <LoginPage/>
-    </div>
-  );
+export default function LoginPage() {
+  return <AuthPage mode="login" />;
 }

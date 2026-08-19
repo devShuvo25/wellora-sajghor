@@ -1,7 +1,5 @@
-import Register from "@/features/auth/components/Register";
+import { AuthPage } from "@/components/AuthPage";
 
 export default function RegisterPage() {
-  return (
-    <Register/>
-  );
+  return <AuthPage mode="register" />;
 }

@@ -1,10 +1,7 @@
-import ChangePassword from "@/features/auth/components/ChangePassword";
-import React from "react";
+import { AuthPage } from "@/components/AuthPage";
 
 const ChangePasswordPage = () => {
-  return (
-    <ChangePassword/>
-  );
+  return <AuthPage mode="change" />;
 };
 
 export default ChangePasswordPage;
