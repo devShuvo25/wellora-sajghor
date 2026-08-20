@@ -8,6 +8,7 @@ export interface Product {
   price: number;
   points: number;
   image: string;
+  galleryImages?: string[];
   altText: string;
   description: string;
   volume: string;

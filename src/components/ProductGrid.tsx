@@ -134,17 +134,17 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                 </button>
 
                 <button
-                  id={`btn-quick-view-${product.id}`}
+                  id={`btn-product-details-${product.id}`}
                   onClick={(e) => {
                     e.stopPropagation();
                     onQuickView(product);
                   }}
                   aria-label="Quick View"
-                  title="Quick View Details"
+                  title="View Product Details"
                   className="bg-white text-[#191c1d] p-2.5 rounded-full shadow-md hover:text-[#72585a] hover:scale-110 active:scale-95 transition-all flex items-center justify-center cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-base">
-                    visibility
+                    open_in_new
                   </span>
                 </button>
               </div>
@@ -160,7 +160,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                 <h3
                   onClick={() => onQuickView(product)}
                   className="font-body-sm text-xs sm:text-sm text-[#191c1d] font-medium line-clamp-2 hover:text-[#72585a] transition-colors cursor-pointer mt-0.5"
-                  title={product.name}
+                  title={`View details for ${product.name}`}
                 >
                   {product.name}
                 </h3>

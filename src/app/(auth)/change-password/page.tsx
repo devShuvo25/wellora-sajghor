@@ -1,7 +1,7 @@
-import { AuthPage } from "@/components/AuthPage";
+import { AuthForm } from "../components/AuthForm";
 
 const ChangePasswordPage = () => {
-  return <AuthPage mode="change" />;
+  return <AuthForm mode="change" />;
 };
 
 export default ChangePasswordPage;

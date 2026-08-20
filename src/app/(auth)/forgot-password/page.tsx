@@ -1,7 +1,7 @@
-import { AuthPage } from "@/components/AuthPage";
+import { AuthForm } from "../components/AuthForm";
 
 const ForgotPasswordPage = () => {
-  return <AuthPage mode="forgot" />;
+  return <AuthForm mode="forgot" />;
 };
 
 export default ForgotPasswordPage;

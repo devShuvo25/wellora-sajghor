@@ -1,5 +1,5 @@
-import { AuthPage } from "@/components/AuthPage";
+import { AuthForm } from "../components/AuthForm";
 
 export default function RegisterPage() {
-  return <AuthPage mode="register" />;
+  return <AuthForm mode="register" />;
 }

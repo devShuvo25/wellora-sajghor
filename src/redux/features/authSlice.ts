@@ -29,6 +29,13 @@ const authSlice = createSlice({
     ) => {
       const { token, user } = action.payload;
       state.token = token;
+      if (typeof window !== "undefined") {
+        if (token) {
+          Cookies.set("token", token, { expires: 7, sameSite: "lax" });
+        } else {
+          Cookies.remove("token");
+        }
+      }
       if (user) {
         state.user = user;
       }

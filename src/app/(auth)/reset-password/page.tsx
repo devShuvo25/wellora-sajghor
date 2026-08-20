@@ -1,7 +1,7 @@
-import { AuthPage } from "@/components/AuthPage";
+import { AuthForm } from "../components/AuthForm";
 
 const ResetPasswordPage = () => {
-  return <AuthPage mode="reset" />;
+  return <AuthForm mode="reset" />;
 };
 
 export default ResetPasswordPage;

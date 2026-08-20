@@ -64,6 +64,22 @@ export const authApi = baseApi.injectEndpoints({
       }),
     }),
 
+    verifyOtp: builder.mutation({
+      query: ({ data }) => ({
+        url: "/auth/verify-otp",
+        method: "POST",
+        body: data,
+      }),
+    }),
+
+    resendOtp: builder.mutation({
+      query: ({ data }) => ({
+        url: "/auth/resend-otp",
+        method: "POST",
+        body: data,
+      }),
+    }),
+
     // 1.8 Change Password (Authorized)
     changePassword: builder.mutation({
       query: ({ data }) => ({
@@ -83,5 +99,7 @@ export const {
   useForgotPasswordMutation,
   useResetPasswordMutation,
   useChangePasswordMutation,
-  useGoogleLoginMutation
+  useGoogleLoginMutation,
+  useVerifyOtpMutation,
+  useResendOtpMutation,
 } = authApi;

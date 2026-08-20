@@ -9,6 +9,8 @@ interface CartDrawerProps {
   onRemoveItem: (productId: string) => void;
   onClearCart: () => void;
   onOrderSuccessToast: (message: string) => void;
+  isAuthenticated: boolean;
+  onAuthenticationRequired: () => void;
 }
 
 export const CartDrawer: React.FC<CartDrawerProps> = ({
@@ -19,6 +21,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   onRemoveItem,
   onClearCart,
   onOrderSuccessToast,
+  isAuthenticated,
+  onAuthenticationRequired,
 }) => {
   const [checkoutStep, setCheckoutStep] = useState<'cart' | 'checkout' | 'success'>('cart');
   const [customerName, setCustomerName] = useState('');
@@ -40,6 +44,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
   const handleCheckoutSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isAuthenticated) {
+      onAuthenticationRequired();
+      return;
+    }
     if (!customerName || !phone || !address) {
       alert('Please fill out customer details.');
       return;

@@ -47,6 +47,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     price: 2100,
     points: 21,
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAcUm6XEKchPi0p9CTlLeCDewz1nPaYo0M8snydhY6OrA4xqsaD7wmpiJ5Qabgh-q6_0nefvgEUNzPJ0A0mzV8_qxECdH7FV3rFyT62t9nDWTl6KHZMIeJrqHemkNr1igiI9iO1OgC6_x3xkeKwewjQmyPUHgvbPtGO0E38hfPj8y3sfRG3zQ9Y3LFJsEPK3XqXZwq3TgCyNclDCdPj8Wvd2nx3CbBMNBYIhcBL_6p9GICx1MrrsdArNw',
+    galleryImages: [
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuA9Qcud67ZheEndcDrpMZX5OGCmGGBYArv7UNf16gWAGOnjwxRVJr7ZdoRSj8MIof0mZz1codgTzeDZ1bG12SjVaCtkshWGtXTeKUJ1tIwn21Ah5EipF1d8mXsoiuFPR9ltzKwt0srhGKvVjNrgpBkkBBlcmrSLEIZEHAl1jO927a_H2sVbjBWrKRWZ2ckL3XECmHpyKc2ARlrH68JcG2eK2xxXrSpFOyKQ2BI_G0ulDx8WEEDau8wIwA',
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuB5ZsyM03svjRus1ZvVsmo-N8fLzW2iUTSOznstuDRX0MztULGWcLQUHZk4thSaR06UpvZk9NcCqyjIGuwzA2ns2sN6MClMX8OB5G04B4wnv0voANWqPdeB7Ug7hc1JFwEM8s-WBS7VRHP1Q5qM7NfpHAsXyY3Y0okqR53cxN37anLHEmExabkTtzXPhvnNrj-Iyb7jyNztrcsCoI9SrZjC4CjZ5Qg-mNqoJTTNTRtLHAx_swYpNEPLw',
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuCy6LXtz7Tdr1MnuMC85umhRjD2E33mdSM2kIrqFoNTidQSpsT6obzSzLXqwPKq0y_UhmMoF9II5tbv5mhr2L1SgkMxNaA_AwZsklRHT9F0-EEvzes36HT5-mnXH0yne-wqwDNzuxmECr0-PnIxi5S9yWfrl_CErb0rYsW0YluU730vijKLE0cgKBN4kgz1cA0B-MhuuxY9jK1izeen2Iyp-YCXHuBaOseJwAJSNZWYAjZOX8ZUaa9DPQ',
+    ],
     altText: 'A high-end product shot of an Anua Heartleaf soothing toner bottle against a soft background.',
     description: 'Formulated with 77% Heartleaf Extract harvested and processed in Korea, this cult-favorite toner calms irritation, regulates sebum, and balances skin pH.',
     volume: '250ml',

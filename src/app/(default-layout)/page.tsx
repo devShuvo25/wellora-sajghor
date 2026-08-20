@@ -2,6 +2,8 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
 import {
   Product,
   CartItem,
@@ -24,7 +26,6 @@ import { CategoryStrip } from '../../components/CategoryStrip';
 import { ProductGrid } from '../../components/ProductGrid';
 import { DistributorBanner } from '../../components/DistributorBanner';
 import { Footer } from '../../components/Footer';
-import { QuickViewModal } from '../../components/QuickViewModal';
 import { CartDrawer } from '../../components/CartDrawer';
 import { NotificationToast } from '../../components/NotificationToast';
 
@@ -38,8 +39,11 @@ import { SalesAnalyticsView } from '../../components/portal/SalesAnalyticsView';
 import { TeamOverridesView } from '../../components/portal/TeamOverridesView';
 import { WalletModal } from '../../components/portal/WalletModal';
 import { TrackingModal } from '../../components/portal/TrackingModal';
+import { RootState } from '../../redux/store';
 
 export function App() {
+  const router = useRouter();
+  const isAuthenticated = useSelector((state: RootState) => Boolean(state.auth.token));
   // Navigation & View State
   const [currentView, setCurrentView] = useState<AppView>('store');
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
@@ -54,7 +58,6 @@ export function App() {
     { product: INITIAL_PRODUCTS[0], quantity: 1 },
   ]);
   const [cartOpen, setCartOpen] = useState(false);
-  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
 
   // Partner State
   const [distributor, setDistributor] = useState<DistributorProfile>(INITIAL_DISTRIBUTOR);
@@ -167,17 +170,6 @@ export function App() {
         onDismiss={() => setToastMessage(null)}
       />
 
-      {/* Quick View Modal */}
-      <QuickViewModal
-        product={quickViewProduct}
-        onClose={() => setQuickViewProduct(null)}
-        onAddToCart={handleAddToCart}
-        onOrderAsDistributor={(product) => {
-          setCurrentView('partner-create-order');
-          showToast(`Selected ${product.name} for Partner order creation`);
-        }}
-      />
-
       {/* Cart Drawer */}
       <CartDrawer
         isOpen={cartOpen}
@@ -187,6 +179,8 @@ export function App() {
         onRemoveItem={handleRemoveCartItem}
         onClearCart={handleClearCart}
         onOrderSuccessToast={showToast}
+        isAuthenticated={isAuthenticated}
+        onAuthenticationRequired={() => router.push('/login?next=/')}
       />
 
       {/* Wallet Payout Modal */}
@@ -210,7 +204,7 @@ export function App() {
           <Navbar
             cartCount={cartItems.reduce((acc, i) => acc + i.quantity, 0)}
             onOpenCart={() => setCartOpen(true)}
-            onNavigateToPartner={() => setCurrentView('partner-dashboard')}
+            onNavigateToPartner={() => router.push('/account')}
             onSelectCategory={setSelectedCategory}
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
@@ -220,7 +214,7 @@ export function App() {
           <main className="flex-1">
             <Hero
               onExploreClick={() => handleScrollToSection('trending-section')}
-              onDistributorClick={() => setCurrentView('partner-dashboard')}
+              onDistributorClick={() => router.push(isAuthenticated ? '/account' : '/login?next=/account')}
             />
 
             <TrustBadges />
@@ -235,7 +229,7 @@ export function App() {
               selectedCategory={selectedCategory}
               searchQuery={searchQuery}
               onAddToCart={(product) => handleAddToCart(product, 1)}
-              onQuickView={(product) => setQuickViewProduct(product)}
+              onQuickView={(product) => router.push(`/products/${product.id}`)}
               onClearFilters={() => {
                 setSelectedCategory(null);
                 setSearchQuery('');
@@ -243,11 +237,11 @@ export function App() {
             />
 
             <DistributorBanner
-              onBecomeDistributor={() => setCurrentView('partner-dashboard')}
+              onBecomeDistributor={() => router.push(isAuthenticated ? '/account' : '/login?next=/account')}
             />
           </main>
 
-          <Footer onPartnerClick={() => setCurrentView('partner-dashboard')} />
+          <Footer onPartnerClick={() => router.push(isAuthenticated ? '/account' : '/login?next=/account')} />
         </div>
       ) : (
         // ------------------ PARTNER PORTAL (Screen 2 & 3) ------------------

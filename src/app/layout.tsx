@@ -4,6 +4,7 @@ import "./globals.css";
 import ReduxProvider from "@/redux/provider/ReduxProvider";
 import { cn } from "@/lib/utils";
 import { Providers } from "./provider";
+import { StorefrontShell } from "@/components/StorefrontShell";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-montserrat" });
@@ -35,7 +36,7 @@ export default function RootLayout({
       >
         <ReduxProvider>
           <Providers>
-            {children}
+            <StorefrontShell>{children}</StorefrontShell>
           </Providers>
         </ReduxProvider>
       </body>

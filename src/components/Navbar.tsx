@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import { ProductCategory } from '../types';
+import { useAppSelector } from '@/redux/hooks';
+import { resolveDashboardRoute } from '@/lib/dashboardAccess';
 
 interface NavbarProps {
   cartCount: number;
@@ -21,6 +25,13 @@ export const Navbar: React.FC<NavbarProps> = ({
   onScrollToSection,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
+  const userRole = useAppSelector((state) => state.auth.user?.role);
+  const accountRoute = resolveDashboardRoute(userRole);
+  const isHomeActive = pathname === '/';
+  const isShopActive = pathname.startsWith('/products');
+  const isPartnerActive = pathname.startsWith('/account');
 
   return (
     <>
@@ -55,13 +66,21 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-6">
-              <button 
-                id="nav-shop-btn"
-                onClick={() => onScrollToSection('trending-section')} 
-                className="font-label-caps text-xs text-[#72585a] font-bold border-b-2 border-[#72585a] pb-1 hover:text-[#72585a] transition-colors cursor-pointer"
+              <Link
+                href="/"
+                aria-current={isHomeActive ? 'page' : undefined}
+                className={`font-label-caps text-xs pb-1 transition-colors cursor-pointer ${isHomeActive ? 'text-[#72585a] font-bold border-b-2 border-[#72585a]' : 'text-[#4f4445] font-medium hover:text-[#72585a]'}`}
               >
-                Shop
-              </button>
+                Home
+              </Link>
+              <Link
+                id="nav-shop-btn"
+                href="/products"
+                aria-current={isShopActive ? 'page' : undefined}
+                className={`font-label-caps text-xs pb-1 transition-colors cursor-pointer ${isShopActive ? 'text-[#72585a] font-bold border-b-2 border-[#72585a]' : 'text-[#4f4445] font-medium hover:text-[#72585a]'}`}
+              >
+                Shop All
+              </Link>
               <button 
                 id="nav-brands-btn"
                 onClick={() => onScrollToSection('categories-section')} 
@@ -119,8 +138,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Partner Portal Switcher Button */}
             <button
               id="distributor-portal-entry-btn"
-              onClick={onNavigateToPartner}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-[#fedadd]/60 hover:bg-[#fedadd] text-[#594043] border border-[#d3c3c4]/50 rounded-full font-label-caps text-[11px] font-semibold transition-all cursor-pointer shadow-2xs"
+              onClick={() => router.push(accountRoute)}
+              aria-current={isPartnerActive ? 'page' : undefined}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full font-label-caps text-[11px] font-semibold transition-all cursor-pointer shadow-2xs ${isPartnerActive ? 'bg-[#e8c5c8] text-[#594043] border-b-2 border-[#72585a]' : 'bg-[#fedadd]/60 hover:bg-[#fedadd] text-[#594043] border border-[#d3c3c4]/50'}`}
               title="Open Distributor Portal"
             >
               <span className="material-symbols-outlined text-[16px] text-[#72585a]">storefront</span>
@@ -130,7 +150,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Account Icon / Trigger */}
             <button
               id="user-account-btn"
-              onClick={onNavigateToPartner}
+              onClick={() => router.push(accountRoute)}
               aria-label="Login & Partner Portal"
               className="text-[#72585a] hover:text-[#594043] transition-colors flex items-center justify-center p-2 rounded-full hover:bg-[#e7e8e9] cursor-pointer"
               title="Partner Account (Shuvo Mallik)"
@@ -181,12 +201,22 @@ export const Navbar: React.FC<NavbarProps> = ({
               />
             </div>
             <div className="flex flex-col gap-2 pt-2 border-t border-[#d3c3c4]/40 font-label-caps text-xs">
-              <button 
-                onClick={() => { onScrollToSection('trending-section'); setMobileMenuOpen(false); }}
-                className="text-left py-1 text-[#72585a] font-bold"
+              <Link
+                href="/"
+                onClick={() => setMobileMenuOpen(false)}
+                aria-current={isHomeActive ? 'page' : undefined}
+                className={`text-left py-1 ${isHomeActive ? 'font-bold text-[#72585a] border-l-2 border-[#72585a] pl-2' : 'text-[#4f4445] hover:text-[#72585a]'}`}
+              >
+                Home
+              </Link>
+              <Link
+                href="/products"
+                onClick={() => setMobileMenuOpen(false)}
+                aria-current={isShopActive ? 'page' : undefined}
+                className={`text-left py-1 ${isShopActive ? 'font-bold text-[#72585a] border-l-2 border-[#72585a] pl-2' : 'text-[#4f4445] hover:text-[#72585a]'}`}
               >
                 Shop All Products
-              </button>
+              </Link>
               <button 
                 onClick={() => { onScrollToSection('categories-section'); setMobileMenuOpen(false); }}
                 className="text-left py-1 text-[#4f4445]"
