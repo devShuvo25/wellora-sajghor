@@ -76,7 +76,7 @@ export function PartnerPortalPage({ activeTab = 'dashboard' }: PartnerPortalPage
   };
 
   return (
-    <main className="min-h-screen bg-[#f8f9fa]">
+    <main className="min-h-screen bg-wellora-background">
       <DistributorSidebar
         currentView={tabViews[activeTab]}
         onNavigate={navigateToTab}
@@ -116,11 +116,11 @@ export function PartnerPortalPage({ activeTab = 'dashboard' }: PartnerPortalPage
           <TeamOverridesView distributor={distributor} onOpenMobileMenu={() => setMobileSidebarOpen(true)} onToast={showToast} />
         )}
         {activeTab === 'wallet' && (
-          <div className="min-h-screen bg-[#f8f9fa] p-4 sm:p-8 lg:p-10">
-            <div className="rounded-xl border border-[#d3c3c4]/30 bg-white p-6 shadow-2xs">
-              <h2 className="text-xl font-bold text-[#191c1d]">Partner Wallet</h2>
-              <p className="mt-1 text-sm text-[#4f4445]">Manage your available commissions and payout methods.</p>
-              <button onClick={() => setWalletModalOpen(true)} className="mt-6 rounded-lg bg-[#72585a] px-5 py-2.5 text-xs font-bold text-white hover:bg-[#594043]">
+          <div className="min-h-screen bg-wellora-background p-4 sm:p-8 lg:p-10">
+            <div className="rounded-xl border border-wellora-outline-variant/30 bg-wellora-surface-container-lowest p-6 shadow-2xs">
+              <h2 className="text-xl font-bold text-wellora-on-background">Partner Wallet</h2>
+              <p className="mt-1 text-sm text-wellora-on-surface-variant">Manage your available commissions and payout methods.</p>
+              <button onClick={() => setWalletModalOpen(true)} className="mt-6 rounded-lg bg-wellora-surface-tint px-5 py-2.5 text-xs font-bold text-wellora-on-primary hover:bg-wellora-on-primary-fixed-variant">
                 Request payout
               </button>
             </div>
@@ -139,7 +139,7 @@ export function PartnerPortalPage({ activeTab = 'dashboard' }: PartnerPortalPage
       />
       <TrackingModal order={trackingOrder} onClose={() => setTrackingOrder(null)} />
       {toastMessage && (
-        <div className="fixed bottom-5 right-5 z-[60] rounded-lg bg-[#2e3132] px-4 py-3 text-sm text-white shadow-lg" role="status">
+        <div className="fixed bottom-5 right-5 z-[60] rounded-lg bg-wellora-inverse-surface px-4 py-3 text-sm text-wellora-on-primary shadow-lg" role="status">
           {toastMessage}
         </div>
       )}

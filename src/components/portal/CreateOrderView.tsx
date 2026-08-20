@@ -80,19 +80,19 @@ export const CreateOrderView: React.FC<CreateOrderViewProps> = ({
   };
 
   return (
-    <div id="partner-create-order-view" className="flex-1 min-h-screen bg-[#f8f9fa] p-4 sm:p-8 lg:p-10">
+    <div id="partner-create-order-view" className="flex-1 min-h-screen bg-wellora-background p-4 sm:p-8 lg:p-10">
       <div className="flex items-center gap-3 mb-8">
         <button
           onClick={onOpenMobileMenu}
-          className="md:hidden p-2 rounded bg-white text-[#191c1d] border border-[#d3c3c4]"
+          className="md:hidden p-2 rounded bg-wellora-surface-container-lowest text-wellora-on-background border border-wellora-outline-variant"
         >
           <span className="material-symbols-outlined">menu</span>
         </button>
         <div>
-          <h2 className="font-headline-md text-xl sm:text-2xl font-bold text-[#191c1d]">
+          <h2 className="font-headline-md text-xl sm:text-2xl font-bold text-wellora-on-background">
             Direct Customer Order Dispatch
           </h2>
-          <p className="font-body-sm text-xs sm:text-sm text-[#4f4445] mt-0.5">
+          <p className="font-body-sm text-xs sm:text-sm text-wellora-on-surface-variant mt-0.5">
             Log manual orders from personal chats. Our warehouse fulfills and ships directly to your client.
           </p>
         </div>
@@ -100,15 +100,15 @@ export const CreateOrderView: React.FC<CreateOrderViewProps> = ({
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Order Form */}
-        <div className="lg:col-span-2 bg-white rounded-xl p-6 sm:p-8 border border-[#d3c3c4]/30 shadow-2xs">
+        <div className="lg:col-span-2 bg-wellora-surface-container-lowest rounded-xl p-6 sm:p-8 border border-wellora-outline-variant/30 shadow-2xs">
           <form onSubmit={handleSubmit} className="space-y-4 text-xs">
-            <h3 className="font-headline-sm text-base font-bold text-[#191c1d] pb-2 border-b border-[#d3c3c4]/30">
+            <h3 className="font-headline-sm text-base font-bold text-wellora-on-background pb-2 border-b border-wellora-outline-variant/30">
               Customer & Delivery Details
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block font-label-caps text-[11px] text-[#4f4445] uppercase mb-1">
+                <label className="block font-label-caps text-[11px] text-wellora-on-surface-variant uppercase mb-1">
                   Customer Name *
                 </label>
                 <input
@@ -117,12 +117,12 @@ export const CreateOrderView: React.FC<CreateOrderViewProps> = ({
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
                   placeholder="e.g. Samira Rahman"
-                  className="w-full px-3.5 py-2.5 bg-[#f8f9fa] border border-[#d3c3c4] rounded-lg text-[#191c1d] focus:bg-white focus:border-[#72585a]"
+                  className="w-full px-3.5 py-2.5 bg-wellora-background border border-wellora-outline-variant rounded-lg text-wellora-on-background focus:bg-wellora-surface-container-lowest focus:border-wellora-surface-tint"
                 />
               </div>
 
               <div>
-                <label className="block font-label-caps text-[11px] text-[#4f4445] uppercase mb-1">
+                <label className="block font-label-caps text-[11px] text-wellora-on-surface-variant uppercase mb-1">
                   Mobile Number *
                 </label>
                 <input
@@ -131,13 +131,13 @@ export const CreateOrderView: React.FC<CreateOrderViewProps> = ({
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                   placeholder="01XXXXXXXXX"
-                  className="w-full px-3.5 py-2.5 bg-[#f8f9fa] border border-[#d3c3c4] rounded-lg text-[#191c1d] focus:bg-white focus:border-[#72585a]"
+                  className="w-full px-3.5 py-2.5 bg-wellora-background border border-wellora-outline-variant rounded-lg text-wellora-on-background focus:bg-wellora-surface-container-lowest focus:border-wellora-surface-tint"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block font-label-caps text-[11px] text-[#4f4445] uppercase mb-1">
+              <label className="block font-label-caps text-[11px] text-wellora-on-surface-variant uppercase mb-1">
                 Full Delivery Street Address *
               </label>
               <textarea
@@ -146,19 +146,19 @@ export const CreateOrderView: React.FC<CreateOrderViewProps> = ({
                 value={deliveryAddress}
                 onChange={(e) => setDeliveryAddress(e.target.value)}
                 placeholder="House, Road, Block/Sector, Area (e.g. House 14, Road 5, Banani, Dhaka)"
-                className="w-full px-3.5 py-2.5 bg-[#f8f9fa] border border-[#d3c3c4] rounded-lg text-[#191c1d] focus:bg-white focus:border-[#72585a]"
+                className="w-full px-3.5 py-2.5 bg-wellora-background border border-wellora-outline-variant rounded-lg text-wellora-on-background focus:bg-wellora-surface-container-lowest focus:border-wellora-surface-tint"
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
               <div className="sm:col-span-2">
-                <label className="block font-label-caps text-[11px] text-[#4f4445] uppercase mb-1">
+                <label className="block font-label-caps text-[11px] text-wellora-on-surface-variant uppercase mb-1">
                   Product Item
                 </label>
                 <select
                   value={selectedProductId}
                   onChange={(e) => setSelectedProductId(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-[#f8f9fa] border border-[#d3c3c4] rounded-lg text-[#191c1d]"
+                  className="w-full px-3.5 py-2.5 bg-wellora-background border border-wellora-outline-variant rounded-lg text-wellora-on-background"
                 >
                   {products.map((p) => (
                     <option key={p.id} value={p.id}>
@@ -169,7 +169,7 @@ export const CreateOrderView: React.FC<CreateOrderViewProps> = ({
               </div>
 
               <div>
-                <label className="block font-label-caps text-[11px] text-[#4f4445] uppercase mb-1">
+                <label className="block font-label-caps text-[11px] text-wellora-on-surface-variant uppercase mb-1">
                   Quantity
                 </label>
                 <input
@@ -178,20 +178,20 @@ export const CreateOrderView: React.FC<CreateOrderViewProps> = ({
                   max="20"
                   value={quantity}
                   onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                  className="w-full px-3.5 py-2.5 bg-[#f8f9fa] border border-[#d3c3c4] rounded-lg text-[#191c1d]"
+                  className="w-full px-3.5 py-2.5 bg-wellora-background border border-wellora-outline-variant rounded-lg text-wellora-on-background"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block font-label-caps text-[11px] text-[#4f4445] uppercase mb-1">
+                <label className="block font-label-caps text-[11px] text-wellora-on-surface-variant uppercase mb-1">
                   Sales Origin Channel
                 </label>
                 <select
                   value={channel}
                   onChange={(e) => setChannel(e.target.value as OrderChannel)}
-                  className="w-full px-3.5 py-2.5 bg-[#f8f9fa] border border-[#d3c3c4] rounded-lg text-[#191c1d]"
+                  className="w-full px-3.5 py-2.5 bg-wellora-background border border-wellora-outline-variant rounded-lg text-wellora-on-background"
                 >
                   <option value="WhatsApp">WhatsApp Inquiries</option>
                   <option value="Facebook">Facebook Page / Group</option>
@@ -202,7 +202,7 @@ export const CreateOrderView: React.FC<CreateOrderViewProps> = ({
               </div>
 
               <div>
-                <label className="block font-label-caps text-[11px] text-[#4f4445] uppercase mb-1">
+                <label className="block font-label-caps text-[11px] text-wellora-on-surface-variant uppercase mb-1">
                   Courier Special Instructions (Optional)
                 </label>
                 <input
@@ -210,7 +210,7 @@ export const CreateOrderView: React.FC<CreateOrderViewProps> = ({
                   value={specialInstructions}
                   onChange={(e) => setSpecialInstructions(e.target.value)}
                   placeholder="e.g. Call before delivery, ring bell 3A"
-                  className="w-full px-3.5 py-2.5 bg-[#f8f9fa] border border-[#d3c3c4] rounded-lg text-[#191c1d]"
+                  className="w-full px-3.5 py-2.5 bg-wellora-background border border-wellora-outline-variant rounded-lg text-wellora-on-background"
                 />
               </div>
             </div>
@@ -218,7 +218,7 @@ export const CreateOrderView: React.FC<CreateOrderViewProps> = ({
             <div className="pt-4 flex flex-wrap gap-4 items-center">
               <button
                 type="submit"
-                className="px-8 py-3 bg-[#72585a] text-white rounded-lg font-label-caps text-xs font-bold uppercase tracking-wider hover:bg-[#594043] transition-all shadow-xs cursor-pointer"
+                className="px-8 py-3 bg-wellora-surface-tint text-wellora-on-primary rounded-lg font-label-caps text-xs font-bold uppercase tracking-wider hover:bg-wellora-on-primary-fixed-variant transition-all shadow-xs cursor-pointer"
               >
                 Log & Dispatch Order (৳{orderTotal.toLocaleString()})
               </button>
@@ -226,7 +226,7 @@ export const CreateOrderView: React.FC<CreateOrderViewProps> = ({
               <button
                 type="button"
                 onClick={handleGenerateWhatsAppReceipt}
-                className="px-4 py-3 bg-[#dde2f3] text-[#585e6c] rounded-lg font-label-caps text-xs font-semibold hover:bg-[#c1c6d7] transition-colors cursor-pointer flex items-center gap-1.5"
+                className="px-4 py-3 bg-wellora-secondary-container text-wellora-secondary rounded-lg font-label-caps text-xs font-semibold hover:bg-wellora-secondary-fixed-dim transition-colors cursor-pointer flex items-center gap-1.5"
               >
                 <span className="material-symbols-outlined text-sm">chat</span>
                 <span>Copy WhatsApp Confirmation</span>
@@ -237,38 +237,38 @@ export const CreateOrderView: React.FC<CreateOrderViewProps> = ({
 
         {/* Live Invoice Preview */}
         <div className="space-y-6">
-          <div className="bg-white rounded-xl p-6 border border-[#d3c3c4]/30 shadow-2xs text-xs space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-[#d3c3c4]/30">
-              <span className="font-headline-sm text-sm font-bold text-[#191c1d]">
+          <div className="bg-wellora-surface-container-lowest rounded-xl p-6 border border-wellora-outline-variant/30 shadow-2xs text-xs space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-wellora-outline-variant/30">
+              <span className="font-headline-sm text-sm font-bold text-wellora-on-background">
                 Live Invoice Calculation
               </span>
-              <span className="bg-[#e8c5c8] text-[#6b5053] px-2 py-0.5 rounded text-[10px] font-bold">
+              <span className="bg-wellora-primary-container text-wellora-on-primary-container px-2 py-0.5 rounded text-[10px] font-bold">
                 Auto Calculated
               </span>
             </div>
 
             <div className="space-y-2">
               <div className="flex justify-between">
-                <span className="text-[#4f4445]">Product Item:</span>
-                <span className="font-medium text-[#191c1d] max-w-[150px] truncate text-right">
+                <span className="text-wellora-on-surface-variant">Product Item:</span>
+                <span className="font-medium text-wellora-on-background max-w-[150px] truncate text-right">
                   {selectedProduct.name}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#4f4445]">Unit Price:</span>
+                <span className="text-wellora-on-surface-variant">Unit Price:</span>
                 <span className="font-mono">৳{selectedProduct.price.toLocaleString()}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#4f4445]">Quantity:</span>
+                <span className="text-wellora-on-surface-variant">Quantity:</span>
                 <span className="font-mono">{quantity}</span>
               </div>
-              <div className="flex justify-between pt-2 border-t border-[#d3c3c4]/20 font-bold">
+              <div className="flex justify-between pt-2 border-t border-wellora-outline-variant/20 font-bold">
                 <span>Customer Payable:</span>
-                <span className="text-[#191c1d] text-sm">৳{orderTotal.toLocaleString()}</span>
+                <span className="text-wellora-on-background text-sm">৳{orderTotal.toLocaleString()}</span>
               </div>
-              <div className="flex justify-between p-2.5 bg-[#fedadd]/40 rounded-lg text-[#594043]">
+              <div className="flex justify-between p-2.5 bg-wellora-primary-fixed/40 rounded-lg text-wellora-on-primary-fixed-variant">
                 <span className="font-semibold">Your Commission (16%):</span>
-                <span className="font-bold text-sm text-[#72585a]">+৳{commission.toLocaleString()}</span>
+                <span className="font-bold text-sm text-wellora-surface-tint">+৳{commission.toLocaleString()}</span>
               </div>
             </div>
           </div>

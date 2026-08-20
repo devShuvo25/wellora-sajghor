@@ -2,9 +2,40 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+@theme inline {
+  --color-wellora-primary: var(--color-primary);
+  --color-wellora-on-primary: var(--color-on-primary);
+  --color-wellora-primary-container: var(--color-primary-container);
+  --color-wellora-primary-fixed: var(--color-primary-fixed);
+  --color-wellora-on-primary-fixed-variant: var(--color-on-primary-fixed-variant);
+  --color-wellora-secondary: var(--color-secondary);
+  --color-wellora-secondary-container: var(--color-secondary-container);
+  --color-wellora-on-secondary-container: var(--color-on-secondary-container);
+  --color-wellora-tertiary: var(--color-tertiary);
+  --color-wellora-tertiary-container: var(--color-tertiary-container);
+  --color-wellora-on-tertiary-container: var(--color-on-tertiary-container);
+  --color-wellora-tertiary-fixed: var(--color-tertiary-fixed);
+  --color-wellora-background: var(--color-background);
+  --color-wellora-on-background: var(--color-on-background);
+  --color-wellora-on-surface-variant: var(--color-on-surface-variant);
+  --color-wellora-surface-container-lowest: var(--color-surface-container-lowest);
+  --color-wellora-surface-container-low: var(--color-surface-container-low);
+  --color-wellora-surface-container: var(--color-surface-container);
+  --color-wellora-surface-container-high: var(--color-surface-container-high);
+  --color-wellora-surface-container-highest: var(--color-surface-container-highest);
+  --color-wellora-surface-tint: var(--color-surface-tint);
+  --color-wellora-inverse-surface: var(--color-inverse-surface);
+  --color-wellora-inverse-on-surface: var(--color-inverse-on-surface);
+  --color-wellora-outline: var(--color-outline);
+  --color-wellora-outline-variant: var(--color-outline-variant);
+  --color-wellora-error: var(--color-error);
+  --color-wellora-error-container: var(--color-error-container);
+  --color-wellora-on-error-container: var(--color-on-error-container);
+}
+
 @layer base {
   :root {
-    --color-primary: #72585a;
+    --color-primary: #725861;
     --color-on-primary: #ffffff;
     --color-primary-container: #e8c5c8;
     --color-on-primary-container: #6b5053;
@@ -29,8 +60,8 @@
     
     --color-background: #f8f9fa;
     --color-on-background: #191c1d;
-    --color-surface: #f8f9fa;
-    --color-on-surface: #191c1d;
+    --color-surface: var(--color-background);
+    --color-on-surface: var(--color-on-background);
     --color-on-surface-variant: #4f4445;
     
     --color-surface-container-lowest: #ffffff;
@@ -38,9 +69,9 @@
     --color-surface-container: #edeeef;
     --color-surface-container-high: #e7e8e9;
     --color-surface-container-highest: #e1e3e4;
-    --color-surface-bright: #f8f9fa;
+    --color-surface-bright: var(--color-background);
     --color-surface-dim: #d9dadb;
-    --color-surface-tint: #72585a;
+    --color-surface-tint: var(--color-primary);
     
     --color-inverse-surface: #2e3132;
     --color-inverse-on-surface: #f0f1f2;
@@ -49,13 +80,52 @@
     --color-error: #ba1a1a;
     --color-on-error: #ffffff;
     --color-error-container: #ffdad6;
+    --color-on-error-container: #93000a;
   }
+}
+
+@layer utilities {
+  .bg-wellora-primary { background-color: var(--color-primary); }
+  .bg-wellora-on-primary { background-color: var(--color-on-primary); }
+  .bg-wellora-primary-container { background-color: var(--color-primary-container); }
+  .bg-wellora-primary-fixed { background-color: var(--color-primary-fixed); }
+  .bg-wellora-secondary-container { background-color: var(--color-secondary-container); }
+  .bg-wellora-tertiary-container { background-color: var(--color-tertiary-container); }
+  .bg-wellora-tertiary-fixed { background-color: var(--color-tertiary-fixed); }
+  .bg-wellora-background { background-color: var(--color-background); }
+  .bg-wellora-surface-container-lowest { background-color: var(--color-surface-container-lowest); }
+  .bg-wellora-surface-container-low { background-color: var(--color-surface-container-low); }
+  .bg-wellora-surface-container { background-color: var(--color-surface-container); }
+  .bg-wellora-surface-container-high { background-color: var(--color-surface-container-high); }
+  .bg-wellora-surface-container-highest { background-color: var(--color-surface-container-highest); }
+  .bg-wellora-error { background-color: var(--color-error); }
+  .bg-wellora-error-container { background-color: var(--color-error-container); }
+  .text-wellora-primary { color: var(--color-primary); }
+  .text-wellora-on-primary { color: var(--color-on-primary); }
+  .text-wellora-on-primary-container { color: var(--color-on-primary-container); }
+  .text-wellora-on-primary-fixed { color: var(--color-on-primary-fixed); }
+  .text-wellora-on-primary-fixed-variant { color: var(--color-on-primary-fixed-variant); }
+  .text-wellora-secondary { color: var(--color-secondary); }
+  .text-wellora-on-secondary-container { color: var(--color-on-secondary-container); }
+  .text-wellora-tertiary { color: var(--color-tertiary); }
+  .text-wellora-on-tertiary-container { color: var(--color-on-tertiary-container); }
+  .text-wellora-on-background { color: var(--color-on-background); }
+  .text-wellora-on-surface-variant { color: var(--color-on-surface-variant); }
+  .text-wellora-outline { color: var(--color-outline); }
+  .text-wellora-error { color: var(--color-error); }
+  .text-wellora-on-error-container { color: var(--color-on-error-container); }
+  .border-wellora-primary { border-color: var(--color-primary); }
+  .border-wellora-primary-container { border-color: var(--color-primary-container); }
+  .border-wellora-outline { border-color: var(--color-outline); }
+  .border-wellora-outline-variant { border-color: var(--color-outline-variant); }
+  .border-wellora-error { border-color: var(--color-error); }
+  .placeholder-wellora-on-surface-variant::placeholder { color: var(--color-on-surface-variant); }
 }
 
 body {
   font-family: var(--font-inter), sans-serif;
-  background-color: #f8f9fa;
-  color: #191c1d;
+  background-color: var(--color-background);
+  color: var(--color-on-background);
 }
 
 h1, h2, h3, h4, h5, h6, .font-headline, .font-montserrat {
@@ -74,6 +144,7 @@ h1, h2, h3, h4, h5, h6, .font-headline, .font-montserrat {
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
+  font-feature-settings: 'liga';
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;

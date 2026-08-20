@@ -57,10 +57,10 @@ const copy: Record<AuthMode, { title: string; description: string; submit: strin
 
 function Field({ label, name, type = 'text', inputMode, register, error }: { label: string; name: keyof FormValues; type?: string; inputMode?: React.HTMLAttributes<HTMLInputElement>['inputMode']; register: ReturnType<typeof useForm<FormValues>>['register']; error?: string }) {
   return (
-    <label className="block text-sm font-medium text-[#191c1d]">
+    <label className="block text-sm font-medium text-wellora-on-background">
       {label}
-      <input type={type} inputMode={inputMode} {...register(name)} className="mt-1 w-full rounded-lg border border-[#d3c3c4] px-3 py-2.5 outline-none focus:border-[#72585a]" />
-      {error && <span className="mt-1 block text-xs text-[#ba1a1a]">{error}</span>}
+      <input type={type} inputMode={inputMode} {...register(name)} className="mt-1 w-full rounded-lg border border-wellora-outline-variant px-3 py-2.5 outline-none focus:border-wellora-surface-tint" />
+      {error && <span className="mt-1 block text-xs text-wellora-error">{error}</span>}
     </label>
   );
 }
@@ -125,11 +125,11 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
   };
 
   return (
-    <main className="min-h-screen bg-[#f8f9fa] px-4 py-16 text-[#191c1d]">
-      <section className="mx-auto max-w-md rounded-2xl border border-[#d3c3c4]/50 bg-white p-8 shadow-sm">
-        <p className="text-xs uppercase tracking-[0.2em] text-[#72585a]">Wellora</p>
+    <main className="min-h-screen bg-wellora-background px-4 py-16 text-wellora-on-background">
+      <section className="mx-auto max-w-md rounded-2xl border border-wellora-outline-variant/50 bg-wellora-surface-container-lowest p-8 shadow-sm">
+        <p className="text-xs uppercase tracking-[0.2em] text-wellora-surface-tint">Wellora</p>
         <h1 className="mt-3 text-3xl font-bold">{content.title}</h1>
-        <p className="mt-2 text-sm text-[#594043]">{content.description}</p>
+        <p className="mt-2 text-sm text-wellora-on-primary-fixed-variant">{content.description}</p>
         <form className="mt-8 space-y-4" onSubmit={handleSubmit(onSubmit)}>
           {mode === 'register' && <Field label="Name" name="name" register={bind} error={errors.name?.message} />}
           {mode !== 'change' && <Field label="Email" name="email" type="email" register={bind} error={errors.email?.message} />}
@@ -137,10 +137,10 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
           {mode === 'change' && <Field label="Current password" name="currentPassword" type="password" register={bind} error={errors.currentPassword?.message} />}
           {mode !== 'forgot' && <Field label="Password" name="password" type="password" register={bind} error={errors.password?.message} />}
           {['register', 'change', 'reset'].includes(mode) && <Field label="Confirm password" name="confirmPassword" type="password" register={bind} error={errors.confirmPassword?.message} />}
-          <button disabled={isSubmitting} type="submit" className="w-full rounded-lg bg-[#72585a] px-4 py-3 text-sm font-semibold text-white disabled:opacity-60">{isSubmitting ? 'Please wait...' : content.submit}</button>
+          <button disabled={isSubmitting} type="submit" className="w-full rounded-lg bg-wellora-surface-tint px-4 py-3 text-sm font-semibold text-wellora-on-primary disabled:opacity-60">{isSubmitting ? 'Please wait...' : content.submit}</button>
         </form>
-        {notice && <p className="mt-4 text-sm text-[#72585a]">{notice}</p>}
-        <div className="mt-6 flex justify-between text-sm text-[#72585a]">
+        {notice && <p className="mt-4 text-sm text-wellora-surface-tint">{notice}</p>}
+        <div className="mt-6 flex justify-between text-sm text-wellora-surface-tint">
           <Link href="/">Continue shopping</Link>
           {mode === 'login' && <Link href="/forgot-password">Forgot password?</Link>}
           {mode === 'login' && <Link href="/register">Register</Link>}

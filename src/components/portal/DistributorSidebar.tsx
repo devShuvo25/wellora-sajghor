@@ -42,7 +42,7 @@ export const DistributorSidebar: React.FC<DistributorSidebarProps> = ({
 
       <aside
         id="distributor-portal-sidebar"
-        className={`fixed left-0 top-0 h-screen w-72 bg-[#f3f4f5] border-r border-[#d3c3c4]/30 z-50 flex flex-col p-6 transition-transform duration-300 ${
+        className={`fixed left-0 top-0 h-screen w-72 bg-wellora-surface-container-low border-r border-wellora-outline-variant/30 z-50 flex flex-col p-6 transition-transform duration-300 ${
           isOpenMobile ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         }`}
       >
@@ -51,20 +51,20 @@ export const DistributorSidebar: React.FC<DistributorSidebarProps> = ({
           {onCloseMobile && (
             <button
               onClick={onCloseMobile}
-              className="md:hidden absolute top-0 right-0 p-1 text-[#4f4445]"
+              className="md:hidden absolute top-0 right-0 p-1 text-wellora-on-surface-variant"
             >
               <span className="material-symbols-outlined">close</span>
             </button>
           )}
 
-          <h1 className="font-headline-sm text-lg font-bold text-[#2a1619] mb-0.5">
+          <h1 className="font-headline-sm text-lg font-bold text-wellora-on-primary-fixed mb-0.5">
             WELLORA Partner
           </h1>
-          <p className="font-body-sm text-xs text-[#4f4445] mb-3 font-medium">
+          <p className="font-body-sm text-xs text-wellora-on-surface-variant mb-3 font-medium">
             {distributor.tier}
           </p>
 
-          <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-[#d3c3c4]/40 bg-white shadow-xs">
+          <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-wellora-outline-variant/40 bg-wellora-surface-container-lowest shadow-xs">
             <img
               src={distributor.avatar}
               alt="Distributor Profile"
@@ -72,10 +72,10 @@ export const DistributorSidebar: React.FC<DistributorSidebarProps> = ({
               referrerPolicy="no-referrer"
             />
           </div>
-          <span className="mt-2 text-xs font-semibold text-[#191c1d]">
+          <span className="mt-2 text-xs font-semibold text-wellora-on-background">
             {distributor.name}
           </span>
-          <span className="text-[10px] bg-[#f1ca50]/30 text-[#6b5500] px-2 py-0.5 rounded-full font-label-caps mt-0.5 font-bold">
+          <span className="text-[10px] bg-wellora-tertiary-container/30 text-wellora-on-tertiary-container px-2 py-0.5 rounded-full font-label-caps mt-0.5 font-bold">
             {distributor.roleBadge}
           </span>
         </div>
@@ -94,8 +94,8 @@ export const DistributorSidebar: React.FC<DistributorSidebarProps> = ({
                 }}
                 className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-xs font-semibold transition-all text-left cursor-pointer ${
                   isActive
-                    ? 'bg-[#72585a] text-white shadow-xs translate-x-1'
-                    : 'text-[#4f4445] hover:bg-[#e7e8e9] hover:text-[#191c1d]'
+                    ? 'bg-wellora-surface-tint text-wellora-on-primary shadow-xs translate-x-1'
+                    : 'text-wellora-on-surface-variant hover:bg-wellora-surface-container-high hover:text-wellora-on-background'
                 }`}
               >
                 <span className="material-symbols-outlined text-lg">{item.icon}</span>
@@ -106,11 +106,11 @@ export const DistributorSidebar: React.FC<DistributorSidebarProps> = ({
         </nav>
 
         {/* Bottom Actions */}
-        <div className="mt-auto pt-4 border-t border-[#d3c3c4]/30 flex flex-col gap-1.5">
+        <div className="mt-auto pt-4 border-t border-wellora-outline-variant/30 flex flex-col gap-1.5">
           <button
             id="sidebar-withdraw-btn"
             onClick={onOpenWithdrawModal}
-            className="w-full py-2.5 mb-1 bg-[#e8c5c8] text-[#6b5053] font-label-caps text-xs font-bold rounded-lg hover:bg-[#fedadd] transition-colors shadow-2xs cursor-pointer flex items-center justify-center gap-1"
+            className="w-full py-2.5 mb-1 bg-wellora-primary-container text-wellora-on-primary-container font-label-caps text-xs font-bold rounded-lg hover:bg-wellora-primary-fixed transition-colors shadow-2xs cursor-pointer flex items-center justify-center gap-1"
           >
             <span className="material-symbols-outlined text-sm">payments</span>
             <span>Withdraw Funds</span>
@@ -119,18 +119,18 @@ export const DistributorSidebar: React.FC<DistributorSidebarProps> = ({
           <button
             id="sidebar-switch-store-btn"
             onClick={onSwitchToStore}
-            className="flex items-center gap-2.5 px-3 py-2 text-[#72585a] hover:bg-[#e8c5c8]/30 rounded-lg text-xs font-semibold transition-colors cursor-pointer"
+            className="flex items-center gap-2.5 px-3 py-2 text-wellora-surface-tint hover:bg-wellora-primary-container/30 rounded-lg text-xs font-semibold transition-colors cursor-pointer"
           >
             <span className="material-symbols-outlined text-base">store</span>
             <span>Customer Storefront</span>
           </button>
 
-          <div className="flex items-center justify-between pt-1 text-[11px] text-[#4f4445]">
+          <div className="flex items-center justify-between pt-1 text-[11px] text-wellora-on-surface-variant">
             <span className="flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
               Live Sync Active
             </span>
-            <span className="font-mono font-semibold text-[#191c1d]">BDT ৳</span>
+            <span className="font-mono font-semibold text-wellora-on-background">BDT ৳</span>
           </div>
         </div>
       </aside>

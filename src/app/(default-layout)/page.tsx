@@ -162,7 +162,7 @@ export function App() {
   const isPartnerPortal = currentView.startsWith('partner-');
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] text-[#191c1d] flex flex-col selection:bg-[#fedadd] selection:text-[#594043]">
+    <div className="min-h-screen bg-wellora-background text-wellora-on-background flex flex-col selection:bg-wellora-primary-fixed selection:text-wellora-on-primary-fixed-variant">
       
       {/* Toast Notification */}
       <NotificationToast
@@ -245,7 +245,7 @@ export function App() {
         </div>
       ) : (
         // ------------------ PARTNER PORTAL (Screen 2 & 3) ------------------
-        <div className="flex min-h-screen bg-[#f8f9fa]">
+        <div className="flex min-h-screen bg-wellora-background">
           {/* Sidebar */}
           <DistributorSidebar
             currentView={currentView}
@@ -303,7 +303,7 @@ export function App() {
               <div className="p-6 md:p-10">
                 <button
                   onClick={() => setWalletModalOpen(true)}
-                  className="px-6 py-3 bg-[#72585a] text-white rounded-lg text-xs font-label-caps"
+                  className="px-6 py-3 bg-wellora-surface-tint text-wellora-on-primary rounded-lg text-xs font-label-caps"
                 >
                   Open Wallet Payout Modal
                 </button>

@@ -48,29 +48,29 @@ export const MarketingAssetLibrary: React.FC<MarketingAssetLibraryProps> = ({
   };
 
   return (
-    <div id="marketing-assets-view" className="flex-1 min-h-screen bg-[#f8f9fa] p-4 sm:p-8 lg:p-10">
+    <div id="marketing-assets-view" className="flex-1 min-h-screen bg-wellora-background p-4 sm:p-8 lg:p-10">
       
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div className="flex items-center gap-3">
           <button
             onClick={onOpenMobileMenu}
-            className="md:hidden p-2 rounded bg-white text-[#191c1d] border border-[#d3c3c4]"
+            className="md:hidden p-2 rounded bg-wellora-surface-container-lowest text-wellora-on-background border border-wellora-outline-variant"
           >
             <span className="material-symbols-outlined">menu</span>
           </button>
           <div>
-            <h2 className="font-headline-md text-xl sm:text-2xl font-bold text-[#191c1d]">
+            <h2 className="font-headline-md text-xl sm:text-2xl font-bold text-wellora-on-background">
               Marketing Asset Library
             </h2>
-            <p className="font-body-sm text-xs sm:text-sm text-[#4f4445] mt-1 max-w-2xl">
+            <p className="font-body-sm text-xs sm:text-sm text-wellora-on-surface-variant mt-1 max-w-2xl">
               Access high-quality promotional materials to elevate your campaigns. Filter by asset type, category, or campaign to find pre-approved creative content.
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="px-3 py-1.5 bg-[#dde2f3] text-[#585e6c] rounded-full font-label-caps text-xs font-semibold flex items-center gap-1.5">
+          <span className="px-3 py-1.5 bg-wellora-secondary-container text-wellora-secondary rounded-full font-label-caps text-xs font-semibold flex items-center gap-1.5">
             <span className="material-symbols-outlined text-sm">cloud_download</span>
             <span>All Rights Cleared</span>
           </span>
@@ -80,9 +80,9 @@ export const MarketingAssetLibrary: React.FC<MarketingAssetLibraryProps> = ({
       {/* Featured Section: New Campaign Kits */}
       <div className="mb-12">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-headline-sm text-lg font-bold text-[#191c1d] flex items-center gap-2">
+          <h3 className="font-headline-sm text-lg font-bold text-wellora-on-background flex items-center gap-2">
             <span>New Campaign Kits</span>
-            <span className="text-xs font-normal text-[#4f4445]">(Complete social media packages)</span>
+            <span className="text-xs font-normal text-wellora-on-surface-variant">(Complete social media packages)</span>
           </h3>
         </div>
 
@@ -90,26 +90,26 @@ export const MarketingAssetLibrary: React.FC<MarketingAssetLibraryProps> = ({
           {CAMPAIGN_KITS.map((kit) => (
             <div
               key={kit.id}
-              className="bg-white rounded-2xl overflow-hidden border border-[#d3c3c4]/30 shadow-xs hover:shadow-md transition-all group flex flex-col justify-between"
+              className="bg-wellora-surface-container-lowest rounded-2xl overflow-hidden border border-wellora-outline-variant/30 shadow-xs hover:shadow-md transition-all group flex flex-col justify-between"
             >
-              <div className="relative h-60 overflow-hidden bg-[#f3f4f5]">
+              <div className="relative h-60 overflow-hidden bg-wellora-surface-container-low">
                 <img
                   src={kit.image}
                   alt={kit.altText}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-label-caps font-semibold text-[#72585a] shadow-xs">
+                <div className="absolute top-4 left-4 bg-wellora-surface-container-lowest/90 backdrop-blur-md px-3 py-1 rounded-full text-xs font-label-caps font-semibold text-wellora-surface-tint shadow-xs">
                   {kit.badge}
                 </div>
               </div>
 
               <div className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <h4 className="font-headline-sm text-lg font-bold text-[#191c1d]">
+                  <h4 className="font-headline-sm text-lg font-bold text-wellora-on-background">
                     {kit.title}
                   </h4>
-                  <p className="font-body-sm text-xs text-[#4f4445] mt-0.5">
+                  <p className="font-body-sm text-xs text-wellora-on-surface-variant mt-0.5">
                     Includes {kit.itemCount} assets (Feed posts, Reels, Bengali captions, and price cards)
                   </p>
                 </div>
@@ -117,7 +117,7 @@ export const MarketingAssetLibrary: React.FC<MarketingAssetLibraryProps> = ({
                 <button
                   onClick={() => handleDownloadKit(kit)}
                   disabled={downloadingKitId === kit.id}
-                  className="px-5 py-2.5 bg-[#72585a] text-white rounded-lg font-label-caps text-xs font-semibold tracking-wider uppercase hover:bg-[#594043] transition-all flex items-center justify-center gap-2 shrink-0 cursor-pointer shadow-2xs"
+                  className="px-5 py-2.5 bg-wellora-surface-tint text-wellora-on-primary rounded-lg font-label-caps text-xs font-semibold tracking-wider uppercase hover:bg-wellora-on-primary-fixed-variant transition-all flex items-center justify-center gap-2 shrink-0 cursor-pointer shadow-2xs"
                 >
                   <span className="material-symbols-outlined text-sm">
                     {downloadingKitId === kit.id ? 'hourglass_bottom' : 'download'}
@@ -131,7 +131,7 @@ export const MarketingAssetLibrary: React.FC<MarketingAssetLibraryProps> = ({
       </div>
 
       {/* Filter Tabs & Content Grid */}
-      <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#d3c3c4]/30 pb-4">
+      <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-wellora-outline-variant/30 pb-4">
         {/* Category Pills */}
         <div className="flex flex-wrap gap-2 text-xs">
           {(['All', 'Serum', 'Cleanser', 'Sunscreen', 'Moisturizer'] as AssetCategory[]).map((cat) => (
@@ -140,8 +140,8 @@ export const MarketingAssetLibrary: React.FC<MarketingAssetLibraryProps> = ({
               onClick={() => setCategoryFilter(cat)}
               className={`px-4 py-1.5 rounded-full font-medium transition-all cursor-pointer ${
                 categoryFilter === cat
-                  ? 'bg-[#72585a] text-white shadow-2xs font-semibold'
-                  : 'bg-white text-[#4f4445] border border-[#d3c3c4]/40 hover:bg-[#f3f4f5]'
+                  ? 'bg-wellora-surface-tint text-wellora-on-primary shadow-2xs font-semibold'
+                  : 'bg-wellora-surface-container-lowest text-wellora-on-surface-variant border border-wellora-outline-variant/40 hover:bg-wellora-surface-container-low'
               }`}
             >
               {cat}
@@ -150,15 +150,15 @@ export const MarketingAssetLibrary: React.FC<MarketingAssetLibraryProps> = ({
         </div>
 
         {/* Type Filter */}
-        <div className="flex items-center gap-1.5 bg-[#f3f4f5] p-1 rounded-lg border border-[#d3c3c4]/40 self-start text-xs">
+        <div className="flex items-center gap-1.5 bg-wellora-surface-container-low p-1 rounded-lg border border-wellora-outline-variant/40 self-start text-xs">
           {(['All', 'Images', 'Videos'] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTypeFilter(t)}
               className={`px-3 py-1 rounded-md transition-colors cursor-pointer ${
                 typeFilter === t
-                  ? 'bg-[#72585a] text-white shadow-2xs font-semibold'
-                  : 'text-[#4f4445] hover:text-[#191c1d]'
+                  ? 'bg-wellora-surface-tint text-wellora-on-primary shadow-2xs font-semibold'
+                  : 'text-wellora-on-surface-variant hover:text-wellora-on-background'
               }`}
             >
               {t}
@@ -172,10 +172,10 @@ export const MarketingAssetLibrary: React.FC<MarketingAssetLibraryProps> = ({
         {filteredAssets.map((asset) => (
           <div
             key={asset.id}
-            className="bg-white rounded-xl border border-[#d3c3c4]/30 shadow-2xs overflow-hidden flex flex-col justify-between group"
+            className="bg-wellora-surface-container-lowest rounded-xl border border-wellora-outline-variant/30 shadow-2xs overflow-hidden flex flex-col justify-between group"
           >
             {/* Visual Container */}
-            <div className="relative aspect-4/3 bg-[#f8f9fa] overflow-hidden">
+            <div className="relative aspect-4/3 bg-wellora-background overflow-hidden">
               <img
                 src={asset.image}
                 alt={asset.altText}
@@ -186,7 +186,7 @@ export const MarketingAssetLibrary: React.FC<MarketingAssetLibraryProps> = ({
               {/* Video Play Overlay if type is video */}
               {asset.type === 'video' && (
                 <div className="absolute inset-0 bg-black/20 flex items-center justify-center pointer-events-none">
-                  <div className="w-12 h-12 rounded-full bg-white/90 text-[#72585a] flex items-center justify-center shadow-lg">
+                  <div className="w-12 h-12 rounded-full bg-wellora-surface-container-lowest/90 text-wellora-surface-tint flex items-center justify-center shadow-lg">
                     <span className="material-symbols-outlined text-2xl fill" data-weight="fill">play_arrow</span>
                   </div>
                 </div>
@@ -195,11 +195,11 @@ export const MarketingAssetLibrary: React.FC<MarketingAssetLibraryProps> = ({
               {/* Badges */}
               <div className="absolute top-3 left-3 flex gap-1.5">
                 {asset.isHighCtr && (
-                  <span className="bg-[#ba1a1a] text-white text-[10px] font-label-caps px-2 py-0.5 rounded-full font-bold shadow-xs">
+                  <span className="bg-wellora-error text-wellora-on-primary text-[10px] font-label-caps px-2 py-0.5 rounded-full font-bold shadow-xs">
                     HIGH CTR 🔥
                   </span>
                 )}
-                <span className="bg-white/90 text-[#191c1d] text-[10px] font-label-caps px-2 py-0.5 rounded-full font-semibold shadow-xs">
+                <span className="bg-wellora-surface-container-lowest/90 text-wellora-on-background text-[10px] font-label-caps px-2 py-0.5 rounded-full font-semibold shadow-xs">
                   {asset.aspectRatio || '1:1'}
                 </span>
               </div>
@@ -208,7 +208,7 @@ export const MarketingAssetLibrary: React.FC<MarketingAssetLibraryProps> = ({
               <button
                 onClick={() => handleDownloadAsset(asset)}
                 title="Download High-Res Asset"
-                className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 text-[#191c1d] hover:bg-[#72585a] hover:text-white flex items-center justify-center transition-colors shadow-xs cursor-pointer"
+                className="absolute top-3 right-3 w-8 h-8 rounded-full bg-wellora-surface-container-lowest/90 text-wellora-on-background hover:bg-wellora-surface-tint hover:text-wellora-on-primary flex items-center justify-center transition-colors shadow-xs cursor-pointer"
               >
                 <span className="material-symbols-outlined text-base">download</span>
               </button>
@@ -219,39 +219,39 @@ export const MarketingAssetLibrary: React.FC<MarketingAssetLibraryProps> = ({
               <div>
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <span className="text-[10px] font-label-caps text-[#72585a] uppercase font-bold">
+                    <span className="text-[10px] font-label-caps text-wellora-surface-tint uppercase font-bold">
                       {asset.category} &bull; {asset.formatType}
                     </span>
-                    <h4 className="font-headline-sm text-base font-bold text-[#191c1d] mt-0.5">
+                    <h4 className="font-headline-sm text-base font-bold text-wellora-on-background mt-0.5">
                       {asset.title}
                     </h4>
                   </div>
                   <div className="text-right">
-                    <span className="text-[10px] text-[#4f4445] block">Suggested Price</span>
-                    <span className="font-bold text-xs text-[#191c1d]">৳{asset.suggestedPrice.toLocaleString()}</span>
+                    <span className="text-[10px] text-wellora-on-surface-variant block">Suggested Price</span>
+                    <span className="font-bold text-xs text-wellora-on-background">৳{asset.suggestedPrice.toLocaleString()}</span>
                   </div>
                 </div>
 
                 {/* Pre-written Copy Text */}
-                <div className="mt-3 p-3 bg-[#f8f9fa] rounded-lg border border-[#d3c3c4]/30 text-xs relative group/copy">
-                  <div className="flex justify-between items-center mb-1 text-[10px] font-label-caps text-[#4f4445] uppercase">
+                <div className="mt-3 p-3 bg-wellora-background rounded-lg border border-wellora-outline-variant/30 text-xs relative group/copy">
+                  <div className="flex justify-between items-center mb-1 text-[10px] font-label-caps text-wellora-on-surface-variant uppercase">
                     <span>Proven Caption Copy</span>
-                    <span className="text-[#735c00] font-semibold">+Link Auto-Appended</span>
+                    <span className="text-wellora-tertiary font-semibold">+Link Auto-Appended</span>
                   </div>
-                  <p className="text-[#191c1d] line-clamp-3 font-body-sm text-[11px] leading-relaxed">
+                  <p className="text-wellora-on-background line-clamp-3 font-body-sm text-[11px] leading-relaxed">
                     {asset.caption}
                   </p>
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#d3c3c4]/20">
+              <div className="grid grid-cols-2 gap-2 pt-2 border-t border-wellora-outline-variant/20">
                 <button
                   onClick={() => handleCopyCaption(asset)}
                   className={`py-2 px-3 rounded-lg text-xs font-label-caps font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
                     copiedCaptionId === asset.id
                       ? 'bg-emerald-100 text-emerald-800'
-                      : 'bg-[#fedadd]/60 hover:bg-[#fedadd] text-[#594043]'
+                      : 'bg-wellora-primary-fixed/60 hover:bg-wellora-primary-fixed text-wellora-on-primary-fixed-variant'
                   }`}
                 >
                   <span className="material-symbols-outlined text-sm">
@@ -262,7 +262,7 @@ export const MarketingAssetLibrary: React.FC<MarketingAssetLibraryProps> = ({
 
                 <button
                   onClick={() => handleDownloadAsset(asset)}
-                  className="py-2 px-3 bg-[#72585a] text-white hover:bg-[#594043] rounded-lg text-xs font-label-caps font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  className="py-2 px-3 bg-wellora-surface-tint text-wellora-on-primary hover:bg-wellora-on-primary-fixed-variant rounded-lg text-xs font-label-caps font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-sm">download</span>
                   <span>Save HD</span>

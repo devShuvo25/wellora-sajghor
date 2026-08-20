@@ -45,17 +45,17 @@ export function OtpForm() {
   };
 
   return (
-    <main className="min-h-screen bg-[#f8f9fa] px-4 py-16 text-[#191c1d]">
-      <section className="mx-auto max-w-md rounded-2xl border border-[#d3c3c4]/50 bg-white p-8 shadow-sm">
-        <p className="text-xs uppercase tracking-[0.2em] text-[#72585a]">Wellora</p>
+    <main className="min-h-screen bg-wellora-background px-4 py-16 text-wellora-on-background">
+      <section className="mx-auto max-w-md rounded-2xl border border-wellora-outline-variant/50 bg-wellora-surface-container-lowest p-8 shadow-sm">
+        <p className="text-xs uppercase tracking-[0.2em] text-wellora-surface-tint">Wellora</p>
         <h1 className="mt-3 text-3xl font-bold">Verify your email</h1>
-        <p className="mt-2 text-sm text-[#594043]">Enter the OTP sent to {email || 'your email'}.</p>
+        <p className="mt-2 text-sm text-wellora-on-primary-fixed-variant">Enter the OTP sent to {email || 'your email'}.</p>
         <form className="mt-8 space-y-4" onSubmit={verify}>
-          <input required value={otp} onChange={(event) => setOtp(event.target.value.replace(/\D/g, '').slice(0, 6))} inputMode="numeric" maxLength={6} placeholder="6-digit OTP" className="w-full rounded-lg border border-[#d3c3c4] px-3 py-3 text-center text-lg tracking-[0.4em] outline-none focus:border-[#72585a]" />
-          <button disabled={isLoading} className="w-full rounded-lg bg-[#72585a] px-4 py-3 text-sm font-semibold text-white disabled:opacity-60">{isLoading ? 'Verifying...' : 'Verify OTP'}</button>
+          <input required value={otp} onChange={(event) => setOtp(event.target.value.replace(/\D/g, '').slice(0, 6))} inputMode="numeric" maxLength={6} placeholder="6-digit OTP" className="w-full rounded-lg border border-wellora-outline-variant px-3 py-3 text-center text-lg tracking-[0.4em] outline-none focus:border-wellora-surface-tint" />
+          <button disabled={isLoading} className="w-full rounded-lg bg-wellora-surface-tint px-4 py-3 text-sm font-semibold text-wellora-on-primary disabled:opacity-60">{isLoading ? 'Verifying...' : 'Verify OTP'}</button>
         </form>
-        <button type="button" onClick={resend} className="mt-5 w-full text-sm text-[#72585a]">Resend OTP</button>
-        {notice && <p className="mt-4 text-center text-sm text-[#72585a]">{notice}</p>}
+        <button type="button" onClick={resend} className="mt-5 w-full text-sm text-wellora-surface-tint">Resend OTP</button>
+        {notice && <p className="mt-4 text-center text-sm text-wellora-surface-tint">{notice}</p>}
       </section>
     </main>
   );

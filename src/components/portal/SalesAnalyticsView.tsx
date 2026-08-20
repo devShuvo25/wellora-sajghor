@@ -25,19 +25,19 @@ export const SalesAnalyticsView: React.FC<SalesAnalyticsViewProps> = ({
   ];
 
   return (
-    <div id="sales-analytics-view" className="flex-1 min-h-screen bg-[#f8f9fa] p-4 sm:p-8 lg:p-10">
+    <div id="sales-analytics-view" className="flex-1 min-h-screen bg-wellora-background p-4 sm:p-8 lg:p-10">
       <div className="flex items-center gap-3 mb-8">
         <button
           onClick={onOpenMobileMenu}
-          className="md:hidden p-2 rounded bg-white text-[#191c1d] border border-[#d3c3c4]"
+          className="md:hidden p-2 rounded bg-wellora-surface-container-lowest text-wellora-on-background border border-wellora-outline-variant"
         >
           <span className="material-symbols-outlined">menu</span>
         </button>
         <div>
-          <h2 className="font-headline-md text-xl sm:text-2xl font-bold text-[#191c1d]">
+          <h2 className="font-headline-md text-xl sm:text-2xl font-bold text-wellora-on-background">
             Sales & Channel Analytics
           </h2>
-          <p className="font-body-sm text-xs sm:text-sm text-[#4f4445] mt-0.5">
+          <p className="font-body-sm text-xs sm:text-sm text-wellora-on-surface-variant mt-0.5">
             Detailed performance tracking across social channels and best-converting skincare formulations.
           </p>
         </div>
@@ -45,11 +45,11 @@ export const SalesAnalyticsView: React.FC<SalesAnalyticsViewProps> = ({
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
         {/* Channel Revenue Breakdown */}
-        <div className="bg-white p-6 rounded-xl border border-[#d3c3c4]/30 shadow-2xs">
-          <h3 className="font-headline-sm text-base font-bold text-[#191c1d] mb-1">
+        <div className="bg-wellora-surface-container-lowest p-6 rounded-xl border border-wellora-outline-variant/30 shadow-2xs">
+          <h3 className="font-headline-sm text-base font-bold text-wellora-on-background mb-1">
             Revenue by Social Channel
           </h3>
-          <p className="text-xs text-[#4f4445] mb-6">
+          <p className="text-xs text-wellora-on-surface-variant mb-6">
             Where your customers are placing their skincare orders
           </p>
 
@@ -57,12 +57,12 @@ export const SalesAnalyticsView: React.FC<SalesAnalyticsViewProps> = ({
             {channelData.map((ch) => (
               <div key={ch.channel} className="space-y-1.5">
                 <div className="flex justify-between items-center">
-                  <span className="font-medium text-[#191c1d]">{ch.channel}</span>
-                  <span className="font-bold text-[#72585a]">
+                  <span className="font-medium text-wellora-on-background">{ch.channel}</span>
+                  <span className="font-bold text-wellora-surface-tint">
                     ৳{ch.revenue.toLocaleString()} ({ch.share})
                   </span>
                 </div>
-                <div className="w-full h-2 bg-[#f3f4f5] rounded-full overflow-hidden">
+                <div className="w-full h-2 bg-wellora-surface-container-low rounded-full overflow-hidden">
                   <div
                     className={`h-full ${ch.color} rounded-full`}
                     style={{ width: ch.share }}
@@ -74,29 +74,29 @@ export const SalesAnalyticsView: React.FC<SalesAnalyticsViewProps> = ({
         </div>
 
         {/* Top Performing Skincare */}
-        <div className="bg-white p-6 rounded-xl border border-[#d3c3c4]/30 shadow-2xs">
-          <h3 className="font-headline-sm text-base font-bold text-[#191c1d] mb-1">
+        <div className="bg-wellora-surface-container-lowest p-6 rounded-xl border border-wellora-outline-variant/30 shadow-2xs">
+          <h3 className="font-headline-sm text-base font-bold text-wellora-on-background mb-1">
             Top Earning Skincare Items
           </h3>
-          <p className="text-xs text-[#4f4445] mb-6">
+          <p className="text-xs text-wellora-on-surface-variant mb-6">
             Products generating the highest total commission for you
           </p>
 
-          <div className="divide-y divide-[#d3c3c4]/20 text-xs">
+          <div className="divide-y divide-wellora-outline-variant/20 text-xs">
             {topProducts.map((p, idx) => (
               <div key={idx} className="py-3 flex items-center justify-between first:pt-0 last:pb-0">
                 <div className="flex items-center gap-3">
-                  <span className="w-6 h-6 rounded-full bg-[#f3f4f5] text-[#72585a] font-bold flex items-center justify-center text-xs">
+                  <span className="w-6 h-6 rounded-full bg-wellora-surface-container-low text-wellora-surface-tint font-bold flex items-center justify-center text-xs">
                     #{idx + 1}
                   </span>
                   <div>
-                    <h4 className="font-medium text-[#191c1d]">{p.name}</h4>
-                    <span className="text-[11px] text-[#4f4445]">{p.units} units sold</span>
+                    <h4 className="font-medium text-wellora-on-background">{p.name}</h4>
+                    <span className="text-[11px] text-wellora-on-surface-variant">{p.units} units sold</span>
                   </div>
                 </div>
                 <div className="text-right">
                   <span className="font-bold text-emerald-700 block">+৳{p.earned.toLocaleString()}</span>
-                  <span className="text-[10px] text-[#4f4445]">earned</span>
+                  <span className="text-[10px] text-wellora-on-surface-variant">earned</span>
                 </div>
               </div>
             ))}

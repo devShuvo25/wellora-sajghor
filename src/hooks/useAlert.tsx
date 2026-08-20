@@ -10,8 +10,8 @@ export const useAlert = () => {
       text,
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#EF4444", // Tailwind red-500
-      cancelButtonColor: "#64748B",  // Tailwind slate-500
+      confirmButtonColor: "var(--color-error)", // Tailwind red-500
+      cancelButtonColor: "var(--color-secondary)",  // Tailwind slate-500
       confirmButtonText: "Yes, delete it!",
       cancelButtonText: "Cancel",
       reverseButtons: true,
@@ -44,7 +44,7 @@ export const useAlert = () => {
       title,
       text: message,
       icon: "error",
-      confirmButtonColor: "#3B82F6", // Tailwind blue-500
+      confirmButtonColor: "var(--color-secondary)", // Tailwind blue-500
       customClass: {
         popup: "rounded-2xl",
       },

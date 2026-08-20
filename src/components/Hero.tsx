@@ -1,4 +1,5 @@
 import React from 'react';
+import { ArrowRight, BadgeCheck, Heart, Leaf, ShieldCheck, Truck } from 'lucide-react';
 
 interface HeroProps {
   onExploreClick: () => void;
@@ -7,7 +8,7 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onExploreClick, onDistributorClick }) => {
   return (
-    <section id="hero-section" className="max-w-[1280px] mx-auto px-4 md:px-10 py-12 md:py-20 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center min-h-[560px]">
+    <section id="hero-section" className="max-w-[1280px] mx-auto px-4 md:px-10 py-12 md:py-20 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start min-h-[560px]">
       {/* Left Text */}
       <div className="flex flex-col gap-6 z-10 lg:pr-10">
         <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#fedadd]/70 border border-[#e8c5c8] text-[#594043] rounded-full text-xs font-label-caps tracking-wider w-fit">
@@ -56,15 +57,14 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick, onDistributorClick }
       </div>
 
       {/* Right Grid (From Mockup) */}
-      <div className="grid grid-cols-2 gap-4 h-full min-h-[380px] lg:min-h-[500px] relative">
+      <div className="grid h-[340px] min-h-0 grid-cols-2 gap-4 self-start lg:h-[440px] relative">
         {/* Left tall card */}
-        <div className="rounded-xl overflow-hidden shadow-xs border border-[#d3c3c4]/20 relative h-full bg-[#f3f4f5] group">
+        <div className="min-h-0 rounded-xl overflow-hidden shadow-xs border border-[#d3c3c4]/20 relative h-full bg-[#f3f4f5] group">
           <img
             id="hero-img-bottles"
             className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
             alt="High-end skincare bottles arranged on white marble slab"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyl_3BsUEvnlp_H4uSHytZt0ibiLw1HVzWCgkKiECUeqz7F0Dlz5qe1DQxyVm89gILXUI-3WhBP0bCQE5ievB-__p7xlAGtXNNyx8WUMT2VgpF8PTg8KSuHWohmhjnIh17i23SxLO5y6n2gE3xgxsm9nL7xs9hDg_eATatf-nC-9BQDjtlD-Am5aR1-egiEFyKPSt_OIMLWc7cCF8qNuc13FQm08X9BT8VLneVn6ovzn61ed9h1pZLyw"
-            referrerPolicy="no-referrer"
+            src="/wellora-hero-banner.jfif"
           />
           <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded text-[11px] font-label-caps text-[#191c1d] shadow-xs">
             Curated Formulations
@@ -72,14 +72,14 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick, onDistributorClick }
         </div>
 
         {/* Right column: 2 rows */}
-        <div className="grid grid-rows-2 gap-4 h-full">
+        <div className="grid min-h-0 grid-rows-2 gap-4 h-full">
           {/* Top texture image */}
-          <div className="rounded-xl overflow-hidden shadow-xs border border-[#d3c3c4]/20 relative h-full bg-[#f3f4f5] group">
+          <div className="min-h-0 rounded-xl overflow-hidden shadow-xs border border-[#d3c3c4]/20 relative h-full bg-[#f3f4f5] group">
             <img
               id="hero-img-texture"
               className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
               alt="Rich creamy skincare moisturizer scooped on transparent glass spatula"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjwx_MT-xof0myYfkEIRSmjKqK9iEbgylzdDmPajiyxYhlJCgEnEqvJV2UHX3m9higcGIBQpJm0xPrYIw1JIZ1s-tj-10g5wbd3rFrIagPw7Nok7aGv1uymnYk5SIFlpdqw8xX67VcjIyLSc4506vTpcEfoO2qVc-fz2Wl5-hLOuX22REkcYMNKlNIs0af8gBNmPNnH_oQ1rUwmbrLY6WDrgSIRl6qOSAkLjL9iJXSSThEc-MU-WpGvg"
+              src="/bannerImage2.jfif"
               referrerPolicy="no-referrer"
             />
             <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded text-[10px] font-label-caps text-[#191c1d]">
@@ -88,7 +88,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick, onDistributorClick }
           </div>
 
           {/* Bottom rose badge card */}
-          <div className="rounded-xl overflow-hidden shadow-xs relative bg-[#e8c5c8] flex items-center justify-center p-6 text-center border border-[#fedadd]">
+          <div className="min-h-0 rounded-xl overflow-hidden shadow-xs relative bg-[#e8c5c8] flex items-center justify-center p-6 text-center border border-[#fedadd]">
             <div className="flex flex-col items-center gap-2.5">
               <div className="w-12 h-12 rounded-full bg-white/80 flex items-center justify-center shadow-xs">
                 <span className="material-symbols-outlined text-3xl text-[#6b5053] fill" data-weight="fill">

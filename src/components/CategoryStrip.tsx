@@ -27,10 +27,10 @@ export const CategoryStrip: React.FC<CategoryStripProps> = ({
   return (
     <section id="categories-section" className="max-w-[1280px] mx-auto px-4 md:px-10 py-16 md:py-20">
       <div className="flex flex-col items-center mb-10">
-        <h2 className="font-headline-md text-2xl md:text-3xl text-[#191c1d] text-center font-semibold">
+        <h2 className="font-headline-md text-2xl md:text-3xl text-wellora-on-background text-center font-semibold">
           Shop by Category
         </h2>
-        <p className="font-body-sm text-xs md:text-sm text-[#4f4445] mt-1 text-center">
+        <p className="font-body-sm text-xs md:text-sm text-wellora-on-surface-variant mt-1 text-center">
           Explore dermatologically tested K-Beauty essentials formulated for all skin concerns
         </p>
       </div>
@@ -45,8 +45,8 @@ export const CategoryStrip: React.FC<CategoryStripProps> = ({
           <div
             className={`w-18 h-18 md:w-20 md:h-20 rounded-full flex items-center justify-center border transition-all duration-300 ${
               selectedCategory === null
-                ? 'bg-[#72585a] text-white border-[#72585a] shadow-md scale-105'
-                : 'bg-[#f3f4f5] text-[#4f4445] border-[#d3c3c4]/40 group-hover:bg-[#e8c5c8] group-hover:border-[#e8c5c8] group-hover:text-[#6b5053]'
+                ? 'bg-wellora-surface-tint text-wellora-on-primary border-wellora-surface-tint shadow-md scale-105'
+                : 'bg-wellora-surface-container-low text-wellora-on-surface-variant border-wellora-outline-variant/40 group-hover:bg-wellora-primary-container group-hover:border-wellora-primary-container group-hover:text-wellora-on-primary-container'
             }`}
           >
             <span className="material-symbols-outlined text-2xl md:text-3xl">
@@ -56,8 +56,8 @@ export const CategoryStrip: React.FC<CategoryStripProps> = ({
           <span
             className={`font-label-caps text-xs tracking-wider transition-colors ${
               selectedCategory === null
-                ? 'text-[#72585a] font-bold'
-                : 'text-[#191c1d] group-hover:text-[#72585a]'
+                ? 'text-wellora-surface-tint font-bold'
+                : 'text-wellora-on-background group-hover:text-wellora-surface-tint'
             }`}
           >
             All Products
@@ -76,8 +76,8 @@ export const CategoryStrip: React.FC<CategoryStripProps> = ({
               <div
                 className={`w-18 h-18 md:w-20 md:h-20 rounded-full flex items-center justify-center border transition-all duration-300 ${
                   isSelected
-                    ? 'bg-[#72585a] text-white border-[#72585a] shadow-md scale-105'
-                    : 'bg-[#f3f4f5] text-[#4f4445] border-[#d3c3c4]/40 group-hover:bg-[#e8c5c8] group-hover:border-[#e8c5c8] group-hover:text-[#6b5053]'
+                    ? 'bg-wellora-surface-tint text-wellora-on-primary border-wellora-surface-tint shadow-md scale-105'
+                    : 'bg-wellora-surface-container-low text-wellora-on-surface-variant border-wellora-outline-variant/40 group-hover:bg-wellora-primary-container group-hover:border-wellora-primary-container group-hover:text-wellora-on-primary-container'
                 }`}
               >
                 <span className="material-symbols-outlined text-2xl md:text-3xl">
@@ -87,8 +87,8 @@ export const CategoryStrip: React.FC<CategoryStripProps> = ({
               <span
                 className={`font-label-caps text-xs tracking-wider transition-colors ${
                   isSelected
-                    ? 'text-[#72585a] font-bold'
-                    : 'text-[#191c1d] group-hover:text-[#72585a]'
+                    ? 'text-wellora-surface-tint font-bold'
+                    : 'text-wellora-on-background group-hover:text-wellora-surface-tint'
                 }`}
               >
                 {cat.label}

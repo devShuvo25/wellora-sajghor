@@ -32,21 +32,21 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
   return (
     <section id="trending-section" className="max-w-[1280px] mx-auto px-4 md:px-10 py-12 md:py-16">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-3 mb-8 border-b border-[#d3c3c4]/20 pb-4">
+      <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-3 mb-8 border-b border-wellora-outline-variant/20 pb-4">
         <div>
           <div className="flex items-center gap-3">
-            <h2 className="font-headline-md text-2xl md:text-3xl text-[#191c1d] font-semibold">
+            <h2 className="font-headline-md text-2xl md:text-3xl text-wellora-on-background font-semibold">
               {selectedCategory ? `${selectedCategory} Collection` : 'Trending Now'}
             </h2>
             {selectedCategory && (
-              <span className="px-2.5 py-0.5 bg-[#fedadd] text-[#594043] rounded-full text-xs font-label-caps">
+              <span className="px-2.5 py-0.5 bg-wellora-primary-fixed text-wellora-on-primary-fixed-variant rounded-full text-xs font-label-caps">
                 {filteredProducts.length} items
               </span>
             )}
           </div>
           {searchQuery && (
-            <p className="font-body-sm text-xs text-[#4f4445] mt-1">
-              Showing results matching &ldquo;<span className="font-semibold text-[#191c1d]">{searchQuery}</span>&rdquo;
+            <p className="font-body-sm text-xs text-wellora-on-surface-variant mt-1">
+              Showing results matching &ldquo;<span className="font-semibold text-wellora-on-background">{searchQuery}</span>&rdquo;
             </p>
           )}
         </div>
@@ -56,7 +56,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
             <button
               id="clear-filters-btn"
               onClick={onClearFilters}
-              className="text-xs text-[#72585a] hover:underline font-medium cursor-pointer"
+              className="text-xs text-wellora-surface-tint hover:underline font-medium cursor-pointer"
             >
               Reset Filters
             </button>
@@ -64,7 +64,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
           <button
             id="view-all-products-btn"
             onClick={onClearFilters}
-            className="font-label-caps text-xs text-[#72585a] hover:underline underline-offset-4 font-semibold tracking-wider uppercase cursor-pointer"
+            className="font-label-caps text-xs text-wellora-surface-tint hover:underline underline-offset-4 font-semibold tracking-wider uppercase cursor-pointer"
           >
             View All
           </button>
@@ -73,19 +73,19 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
 
       {/* Empty State */}
       {filteredProducts.length === 0 && (
-        <div className="text-center py-16 bg-white rounded-xl border border-[#d3c3c4]/30 p-8 my-6">
-          <span className="material-symbols-outlined text-5xl text-[#d3c3c4] mb-3">
+        <div className="text-center py-16 bg-wellora-surface-container-lowest rounded-xl border border-wellora-outline-variant/30 p-8 my-6">
+          <span className="material-symbols-outlined text-5xl text-wellora-outline-variant mb-3">
             search_off
           </span>
-          <h3 className="font-headline-sm text-lg font-semibold text-[#191c1d] mb-1">
+          <h3 className="font-headline-sm text-lg font-semibold text-wellora-on-background mb-1">
             No skincare products found
           </h3>
-          <p className="font-body-sm text-sm text-[#4f4445] max-w-sm mx-auto mb-5">
+          <p className="font-body-sm text-sm text-wellora-on-surface-variant max-w-sm mx-auto mb-5">
             We couldn&apos;t find any items matching your current filters. Try searching for COSRX, Toner, or clear your filters.
           </p>
           <button
             onClick={onClearFilters}
-            className="px-6 py-2.5 bg-[#72585a] text-white rounded font-label-caps text-xs tracking-wider uppercase hover:bg-[#594043] transition-colors cursor-pointer"
+            className="px-6 py-2.5 bg-wellora-surface-tint text-wellora-on-primary rounded font-label-caps text-xs tracking-wider uppercase hover:bg-wellora-on-primary-fixed-variant transition-colors cursor-pointer"
           >
             Show All Products
           </button>
@@ -98,10 +98,10 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
           <div
             key={product.id}
             id={`product-card-${product.id}`}
-            className="group flex flex-col bg-white rounded-xl p-3 sm:p-4 border border-transparent hover:border-[#d3c3c4]/40 hover:shadow-lg transition-all duration-300 relative"
+            className="group flex flex-col bg-wellora-surface-container-lowest rounded-xl p-3 sm:p-4 border border-transparent hover:border-wellora-outline-variant/40 hover:shadow-lg transition-all duration-300 relative"
           >
             {/* Image Box */}
-            <div className="relative aspect-square mb-4 overflow-hidden rounded-lg bg-[#f8f9fa] border border-[#d3c3c4]/20">
+            <div className="relative aspect-square mb-4 overflow-hidden rounded-lg bg-wellora-background border border-wellora-outline-variant/20">
               <img
                 className="w-full h-full object-cover mix-blend-multiply group-hover:scale-105 transition-transform duration-500"
                 alt={product.altText}
@@ -111,7 +111,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
 
               {/* Tag / Badge if Trending */}
               {product.isTrending && (
-                <div className="absolute top-2 left-2 bg-[#fedadd]/90 backdrop-blur-xs text-[#594043] font-label-caps text-[9px] px-2 py-0.5 rounded font-semibold">
+                <div className="absolute top-2 left-2 bg-wellora-primary-fixed/90 backdrop-blur-xs text-wellora-on-primary-fixed-variant font-label-caps text-[9px] px-2 py-0.5 rounded font-semibold">
                   BESTSELLER
                 </div>
               )}
@@ -126,7 +126,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                   }}
                   aria-label="Add to Cart"
                   title="Add to Cart"
-                  className="bg-[#72585a] text-white p-2.5 rounded-full shadow-md hover:bg-[#594043] hover:scale-110 active:scale-95 transition-all flex items-center justify-center cursor-pointer"
+                  className="bg-wellora-surface-tint text-wellora-on-primary p-2.5 rounded-full shadow-md hover:bg-wellora-on-primary-fixed-variant hover:scale-110 active:scale-95 transition-all flex items-center justify-center cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-base">
                     shopping_bag
@@ -141,7 +141,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                   }}
                   aria-label="Quick View"
                   title="View Product Details"
-                  className="bg-white text-[#191c1d] p-2.5 rounded-full shadow-md hover:text-[#72585a] hover:scale-110 active:scale-95 transition-all flex items-center justify-center cursor-pointer"
+                  className="bg-wellora-surface-container-lowest text-wellora-on-background p-2.5 rounded-full shadow-md hover:text-wellora-surface-tint hover:scale-110 active:scale-95 transition-all flex items-center justify-center cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-base">
                     open_in_new
@@ -153,13 +153,13 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
             {/* Product Meta */}
             <div className="flex flex-col gap-1 flex-1 justify-between">
               <div>
-                <span className="font-label-caps text-[#4f4445]/80 tracking-widest text-[10px] uppercase font-semibold">
+                <span className="font-label-caps text-wellora-on-surface-variant/80 tracking-widest text-[10px] uppercase font-semibold">
                   {product.brand}
                 </span>
 
                 <h3
                   onClick={() => onQuickView(product)}
-                  className="font-body-sm text-xs sm:text-sm text-[#191c1d] font-medium line-clamp-2 hover:text-[#72585a] transition-colors cursor-pointer mt-0.5"
+                  className="font-body-sm text-xs sm:text-sm text-wellora-on-background font-medium line-clamp-2 hover:text-wellora-surface-tint transition-colors cursor-pointer mt-0.5"
                   title={`View details for ${product.name}`}
                 >
                   {product.name}
@@ -168,15 +168,15 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
 
               <div className="pt-2">
                 <div className="flex items-baseline justify-between">
-                  <span className="font-body-md text-sm sm:text-base font-bold text-[#191c1d]">
+                  <span className="font-body-md text-sm sm:text-base font-bold text-wellora-on-background">
                     ৳ {product.price.toLocaleString()}
                   </span>
-                  <span className="text-[11px] text-[#4f4445]/70">
+                  <span className="text-[11px] text-wellora-on-surface-variant/70">
                     {product.volume}
                   </span>
                 </div>
 
-                <div className="flex items-center gap-1 mt-1.5 text-[#735c00]">
+                <div className="flex items-center gap-1 mt-1.5 text-wellora-tertiary">
                   <span className="material-symbols-outlined text-[13px] fill" data-weight="fill">
                     stars
                   </span>

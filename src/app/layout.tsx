@@ -10,8 +10,20 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-montserrat" });
 
 export const metadata: Metadata = {
-  title: "Work Space",
-  description: "A World wide Freelancing Platform",
+  title: {
+    default: "WELLORA সাজঘর | Skincare & Beauty Products",
+    template: "%s | WELLORA সাজঘর",
+  },
+  description:
+    "WELLORA সাজঘর — আপনার পছন্দের skincare ও beauty products-এর trusted online destination in Bangladesh.",
+  keywords: [
+    "WELLORA",
+    "WELLORA সাজঘর",
+    "skincare Bangladesh",
+    "Korean skincare Bangladesh",
+    "beauty products Bangladesh",
+    "Korean beauty products",
+  ],
   icons: {
     icon: "/favicon.png",
   },
