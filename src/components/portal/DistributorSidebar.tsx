@@ -42,7 +42,7 @@ export const DistributorSidebar: React.FC<DistributorSidebarProps> = ({
 
       <aside
         id="distributor-portal-sidebar"
-        className={`fixed left-0 top-0 h-screen w-72 bg-wellora-surface-container-low border-r border-wellora-outline-variant/30 z-50 flex flex-col p-6 transition-transform duration-300 ${
+        className={`dashboard-sidebar fixed left-0 top-0 h-screen w-72 bg-wellora-surface-container-low border-r border-wellora-outline-variant/30 z-50 flex flex-col p-6 transition-transform duration-300 ${
           isOpenMobile ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         }`}
       >

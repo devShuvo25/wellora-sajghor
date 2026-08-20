@@ -9,8 +9,18 @@ export function StorefrontShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const isProductRoute = pathname.startsWith('/products');
+  const isDashboardRoute = pathname.startsWith('/account') || pathname.startsWith('/dashboard');
 
-  if (!isProductRoute) return <>{children}</>;
+  if (!isProductRoute && !isDashboardRoute) return <>{children}</>;
+
+  if (isDashboardRoute) {
+    return (
+      <>
+        {children}
+        <Footer onPartnerClick={() => router.push('/account')} />
+      </>
+    );
+  }
 
   return (
     <>
@@ -26,7 +36,7 @@ export function StorefrontShell({ children }: { children: ReactNode }) {
           else router.push(`/#${sectionId}`);
         }}
       />
-      <div className="pt-[76px]">{children}</div>
+      <div>{children}</div>
       <Footer onPartnerClick={() => router.push('/account')} />
     </>
   );

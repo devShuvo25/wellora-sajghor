@@ -20,7 +20,6 @@ import {
   Users,
   X,
 } from 'lucide-react';
-import { DashboardFooter } from '@/components/dashboard/DashboardFooter';
 
 const navigation = [
   { label: 'Overview', href: '/dashboard/admin', icon: LayoutDashboard },
@@ -69,7 +68,7 @@ export default function AdminDashboardPage() {
 
   return (
     <div className="min-h-screen bg-wellora-background text-wellora-on-background">
-      <aside className="fixed inset-y-0 left-0 z-40 hidden h-dvh w-72 flex-col border-r border-wellora-outline-variant/20 bg-wellora-surface-container-low p-6 md:flex">
+      <aside className="dashboard-sidebar fixed inset-x-0 top-0 z-40 hidden h-dvh w-72 flex-col border-r border-wellora-outline-variant/20 bg-wellora-surface-container-low p-6 md:inset-x-auto md:flex">
         <div className="mb-8">
           <Link href="/" className="font-headline-md font-bold tracking-tight hover:opacity-75">WELLORA Admin</Link>
           <p className="mt-1 font-label-caps text-wellora-on-surface-variant">MANAGEMENT PORTAL</p>
@@ -103,7 +102,6 @@ export default function AdminDashboardPage() {
             </div>
           </div>
         </div>
-        <DashboardFooter role="admin" />
       </main>
     </div>
   );

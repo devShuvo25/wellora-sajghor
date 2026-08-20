@@ -85,6 +85,13 @@
 }
 
 @layer utilities {
+  @media (min-width: 768px) {
+    .dashboard-sidebar {
+      top: 0 !important;
+      height: 100vh !important;
+    }
+  }
+
   .bg-wellora-primary { background-color: var(--color-primary); }
   .bg-wellora-on-primary { background-color: var(--color-on-primary); }
   .bg-wellora-primary-container { background-color: var(--color-primary-container); }

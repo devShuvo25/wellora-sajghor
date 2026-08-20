@@ -14,7 +14,6 @@ import {
   Users,
   X,
 } from 'lucide-react';
-import { DashboardFooter } from '@/components/dashboard/DashboardFooter';
 
 export type AdminTab = 'orders' | 'product-catalog' | 'distributors' | 'marketing-kits' | 'settings';
 
@@ -50,7 +49,7 @@ export function AdminTabPage({ tab }: { tab: AdminTab }) {
 
   return (
     <div className="min-h-screen bg-wellora-background text-wellora-on-background">
-      <aside className="fixed inset-y-0 left-0 z-40 hidden h-dvh w-72 flex-col border-r border-wellora-outline-variant/20 bg-wellora-surface-container-low p-6 md:flex">
+      <aside className="dashboard-sidebar fixed inset-x-0 top-0 z-40 hidden h-dvh w-72 flex-col border-r border-wellora-outline-variant/20 bg-wellora-surface-container-low p-6 md:inset-x-auto md:flex">
         <div className="mb-8"><Link href="/" className="font-headline-md font-bold tracking-tight hover:opacity-75">WELLORA Admin</Link><p className="mt-1 font-label-caps text-wellora-on-surface-variant">MANAGEMENT PORTAL</p></div>
         <AdminNavigation tab={tab} />
         <div className="mt-auto border-t border-wellora-outline-variant/20 pt-6"><Link href="/dashboard/admin/settings" className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm text-wellora-on-surface-variant hover:bg-wellora-surface-container-high"><Settings size={19} />Settings</Link><div className="mt-4 flex items-center gap-3 rounded-lg border border-wellora-outline-variant/30 bg-wellora-background px-3 py-3"><div className="flex h-10 w-10 items-center justify-center rounded-full bg-wellora-primary-container font-semibold text-wellora-on-primary-container">AU</div><div><p className="text-sm font-semibold">Admin User</p><p className="font-label-caps text-wellora-on-surface-variant">SYSTEM MANAGER</p></div></div></div>
@@ -65,7 +64,6 @@ export function AdminTabPage({ tab }: { tab: AdminTab }) {
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-3"><SummaryCard label="Active records" value={tab === 'orders' ? '850' : tab === 'distributors' ? '124' : '48'} icon={BarChart3} /><SummaryCard label="This month" value={tab === 'orders' ? 'Tk 1.2M' : tab === 'distributors' ? 'Tk 1.3M' : '92%'} icon={ShoppingCart} /><SummaryCard label="Needs attention" value={tab === 'orders' ? '12' : '4'} icon={tab === 'product-catalog' ? Package : Users} /></div>
           <section className="overflow-hidden rounded-xl border border-wellora-surface-container-lowest/70 bg-wellora-surface-container-lowest/70 p-6 shadow-[0_4px_20px_rgb(26,32,44,0.04)] backdrop-blur-xl"><div className="mb-6 flex items-center justify-between"><h2 className="font-headline-sm">{content.title}</h2><button type="button" className="flex items-center gap-1 text-sm text-wellora-surface-tint hover:underline">View details <ChevronRight size={16} /></button></div><div className="overflow-x-auto"><table className="w-full min-w-[620px] border-collapse text-left"><thead className="border-b border-wellora-outline-variant/30 text-wellora-on-surface-variant"><tr>{tableHeaders.map((header) => <th key={header} className="pb-3 pr-4 font-label-caps font-normal">{header}</th>)}<th className="pb-3 text-right font-label-caps font-normal">Action</th></tr></thead><tbody className="text-sm">{rows[tab].map((row) => <tr key={row[0]} className="border-b border-wellora-outline-variant/20 last:border-0 hover:bg-wellora-surface-container-lowest/50">{row.map((cell) => <td key={cell} className="py-4 pr-4">{cell}</td>)}<td className="py-4 text-right"><button type="button" onClick={() => setNotice(`${row[0]} opened for review.`)} className="rounded border border-wellora-outline-variant px-3 py-1.5 text-xs hover:bg-wellora-surface-container-high">Manage</button></td></tr>)}</tbody></table></div></section>
         </div>
-        <DashboardFooter role="admin" />
       </main>
     </div>
   );

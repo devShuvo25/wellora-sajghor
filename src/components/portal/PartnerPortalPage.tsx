@@ -18,7 +18,6 @@ import {
 } from '@/data/mockData';
 import { AppView, DistributorOrder, DistributorProfile } from '@/interface/universal';
 import type { PartnerTab } from '@/components/portal/partnerTabs';
-import { DashboardFooter } from '@/components/dashboard/DashboardFooter';
 
 const tabViews: Record<PartnerTab, AppView> = {
   dashboard: 'partner-dashboard',
@@ -126,7 +125,6 @@ export function PartnerPortalPage({ activeTab = 'dashboard' }: PartnerPortalPage
             </div>
           </div>
         )}
-        <DashboardFooter role="partner" />
       </div>
       <WalletModal
         isOpen={walletModalOpen}

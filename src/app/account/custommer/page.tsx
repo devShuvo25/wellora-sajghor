@@ -1,28 +1,25 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
+import Link from 'next/link';
 import {
   ArrowRight,
   Heart,
   Home,
   LogOut,
   MapPin,
-  Menu,
   Package,
   Sparkles,
   UserRound,
-  X,
 } from 'lucide-react';
 import { INITIAL_PRODUCTS } from '@/data/mockData';
-import { DashboardFooter } from '@/components/dashboard/DashboardFooter';
 
 const customerSections = [
-  { label: 'My Profile', icon: UserRound },
-  { label: 'Orders', icon: Package },
-  { label: 'Wishlist', icon: Heart },
-  { label: 'Addresses', icon: MapPin },
-  { label: 'Loyalty Points', icon: Sparkles },
+  { label: 'My Profile', slug: 'profile', icon: UserRound },
+  { label: 'Orders', slug: 'orders', icon: Package },
+  { label: 'Wishlist', slug: 'wishlist', icon: Heart },
+  { label: 'Addresses', slug: 'addresses', icon: MapPin },
+  { label: 'Loyalty Points', slug: 'loyalty-points', icon: Sparkles },
 ];
 
 const recentOrders = [
@@ -31,9 +28,12 @@ const recentOrders = [
   { id: '#WL-8105', date: 'Sep 05, 2024', status: 'Delivered', total: 4150 },
 ];
 
-export default function CustomerDashboardPage() {
-  const [activeSection, setActiveSection] = useState('My Profile');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+const addresses = [
+  { label: 'Home', recipient: 'Sarah M.', address: 'House 24, Road 8, Dhanmondi, Dhaka', phone: '+880 1700 000000', preferred: true },
+  { label: 'Office', recipient: 'Sarah M.', address: 'Level 5, Gulshan Avenue, Dhaka', phone: '+880 1700 000000', preferred: false },
+];
+
+export default function CustomerDashboardPage({ activeSection = 'My Profile' }: { activeSection?: string }) {
   const [redeemed, setRedeemed] = useState(false);
   const [wishlist, setWishlist] = useState<string[]>(INITIAL_PRODUCTS.slice(0, 4).map((product) => product.id));
 
@@ -43,63 +43,34 @@ export default function CustomerDashboardPage() {
       : [...current, productId]);
   };
 
+  const isOverview = activeSection === 'My Profile';
+
   return (
     <div className="min-h-screen bg-wellora-background text-wellora-on-background">
-      <header className="sticky top-0 z-40 border-b border-wellora-outline-variant/30 bg-wellora-background/90 shadow-sm backdrop-blur-xl">
-        <div className="mx-auto flex h-20 max-w-[1280px] items-center gap-8 px-4 sm:px-6 lg:px-10">
-          <Link href="/" className="font-headline-md font-bold tracking-tight hover:opacity-75">WELLORA</Link>
-          <nav className="hidden items-center gap-7 md:flex" aria-label="Main navigation">
-            <Link href="/products" className="font-label-caps text-wellora-on-surface-variant transition-colors hover:text-wellora-surface-tint">SHOP</Link>
-            <Link href="/products?category=Serum" className="font-label-caps text-wellora-on-surface-variant transition-colors hover:text-wellora-surface-tint">BEST SELLERS</Link>
-            <Link href="/products?sort=new" className="font-label-caps text-wellora-on-surface-variant transition-colors hover:text-wellora-surface-tint">NEW ARRIVALS</Link>
-          </nav>
-          <div className="ml-auto flex items-center gap-4">
-            <Link href="/login" className="hidden font-label-caps text-wellora-on-background hover:text-wellora-surface-tint md:block">LOGIN</Link>
-            <Link href="/account/custommer" aria-label="Customer account" className="rounded-full p-2 text-wellora-surface-tint hover:bg-wellora-surface-container"><UserRound size={20} /></Link>
-            <Link href="/" aria-label="Shopping bag" className="rounded-full p-2 text-wellora-surface-tint hover:bg-wellora-surface-container"><Package size={20} /></Link>
-            <button type="button" aria-label="Open navigation" className="rounded-full p-2 md:hidden" onClick={() => setMobileMenuOpen(true)}><Menu size={21} /></button>
-          </div>
-        </div>
-        {mobileMenuOpen && (
-          <div className="border-t border-wellora-outline-variant/30 bg-wellora-surface-container-lowest px-5 py-4 md:hidden">
-            <div className="flex items-center justify-between">
-              <span className="font-label-caps text-wellora-on-surface-variant">MENU</span>
-              <button type="button" aria-label="Close navigation" onClick={() => setMobileMenuOpen(false)}><X size={20} /></button>
-            </div>
-            <nav className="mt-4 flex flex-col gap-4 font-label-caps" aria-label="Mobile navigation">
-              <Link href="/products">SHOP</Link>
-              <Link href="/products?category=Serum">BEST SELLERS</Link>
-              <Link href="/products?sort=new">NEW ARRIVALS</Link>
-            </nav>
-          </div>
-        )}
-      </header>
-
-      <main className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-8 px-4 py-10 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-10 lg:py-16">
-        <aside className="lg:col-span-3">
+      <main className="mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-8 px-4 py-10 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-10 lg:py-12">
+        <aside className="dashboard-sidebar lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:flex lg:h-dvh lg:w-72 lg:flex-col lg:border-r lg:border-wellora-outline-variant/20 lg:bg-wellora-surface-container-low lg:p-6 lg:pt-10 lg:shadow-sm lg:col-span-3">
           <div className="mb-6">
             <p className="font-label-caps text-wellora-surface-tint">WELLORA ACCOUNT</p>
             <h1 className="mt-3 font-headline-sm">My Account</h1>
             <p className="mt-1 text-sm leading-6 text-wellora-on-surface-variant">Manage your luxury skincare journey.</p>
           </div>
           <nav className="flex gap-2 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible" aria-label="Account sections">
-            {customerSections.map(({ label, icon: Icon }) => (
-              <button
+            {customerSections.map(({ label, slug, icon: Icon }) => (
+              <Link
                 key={label}
-                type="button"
-                onClick={() => setActiveSection(label)}
+                href={slug === 'profile' ? '/account/custommer' : `/account/custommer/${slug}`}
                 className={`flex shrink-0 items-center gap-3 rounded-lg px-4 py-3 text-left text-sm font-medium transition-colors ${activeSection === label ? 'bg-wellora-surface-container-low text-wellora-surface-tint' : 'text-wellora-on-surface-variant hover:bg-wellora-surface-container hover:text-wellora-on-background'}`}
               >
                 <Icon size={18} strokeWidth={1.8} />
                 {label}
-              </button>
+              </Link>
             ))}
             <div className="hidden h-px bg-wellora-outline-variant/30 lg:block" />
             <button type="button" className="flex shrink-0 items-center gap-3 rounded-lg px-4 py-3 text-left text-sm font-medium text-wellora-on-surface-variant transition-colors hover:text-wellora-error"><LogOut size={18} strokeWidth={1.8} />Log out</button>
           </nav>
         </aside>
 
-        <section className="flex flex-col gap-12 lg:col-span-9">
+        <section className="flex min-w-0 flex-col gap-12 lg:col-span-9 lg:col-start-4 lg:pl-0">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="flex flex-col justify-center">
               <p className="font-label-caps text-wellora-surface-tint">{activeSection.toUpperCase()}</p>
@@ -118,10 +89,10 @@ export default function CustomerDashboardPage() {
             </div>
           </div>
 
-          <section aria-labelledby="orders-title">
+          <section className={isOverview ? '' : 'hidden'} aria-labelledby="orders-title">
             <div className="mb-5 flex items-end justify-between gap-4">
               <h2 id="orders-title" className="font-headline-md">Recent Orders</h2>
-              <button type="button" onClick={() => setActiveSection('Orders')} className="flex items-center gap-1 font-label-caps text-wellora-surface-tint hover:underline">VIEW ALL <ArrowRight size={15} /></button>
+              <Link href="/account/custommer/orders" className="flex items-center gap-1 font-label-caps text-wellora-surface-tint hover:underline">VIEW ALL <ArrowRight size={15} /></Link>
             </div>
             <div className="overflow-x-auto rounded-xl border border-wellora-outline-variant/20 bg-wellora-surface-container-lowest shadow-[0_4px_20px_rgb(26,32,44,0.03)]">
               <table className="w-full min-w-[560px] border-collapse text-left">
@@ -133,8 +104,8 @@ export default function CustomerDashboardPage() {
             </div>
           </section>
 
-          <section aria-labelledby="favorites-title">
-            <div className="mb-5 flex items-end justify-between gap-4"><h2 id="favorites-title" className="font-headline-md">Recent Favorites</h2><button type="button" onClick={() => setActiveSection('Wishlist')} className="font-label-caps text-wellora-surface-tint hover:underline">VIEW WISHLIST</button></div>
+          <section className={isOverview ? '' : 'hidden'} aria-labelledby="favorites-title">
+            <div className="mb-5 flex items-end justify-between gap-4"><h2 id="favorites-title" className="font-headline-md">Recent Favorites</h2><Link href="/account/custommer/wishlist" className="font-label-caps text-wellora-surface-tint hover:underline">VIEW WISHLIST</Link></div>
             <div className="grid grid-cols-2 gap-5 md:grid-cols-4">
               {INITIAL_PRODUCTS.slice(0, 4).map((product) => <article key={product.id} className="group">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-wellora-surface-container-low"><img src={product.image} alt={product.altText} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" /><button type="button" aria-label={`${wishlist.includes(product.id) ? 'Remove' : 'Add'} ${product.name} ${wishlist.includes(product.id) ? 'from' : 'to'} wishlist`} onClick={() => toggleWishlist(product.id)} className="absolute right-3 top-3 rounded-full bg-wellora-surface-container-lowest p-2 text-wellora-surface-tint shadow-sm"><Heart size={16} fill={wishlist.includes(product.id) ? 'currentColor' : 'none'} /></button></div>
@@ -142,10 +113,27 @@ export default function CustomerDashboardPage() {
               </article>)}
             </div>
           </section>
+
+          {!isOverview && <CustomerTabContent activeSection={activeSection} wishlist={wishlist} onToggleWishlist={toggleWishlist} />}
         </section>
       </main>
 
-      <DashboardFooter role="customer" />
     </div>
   );
+}
+
+function CustomerTabContent({ activeSection, wishlist, onToggleWishlist }: { activeSection: string; wishlist: string[]; onToggleWishlist: (productId: string) => void }) {
+  if (activeSection === 'Orders') {
+    return <section aria-labelledby="all-orders-title" className="rounded-xl border border-wellora-outline-variant/20 bg-wellora-surface-container-lowest p-6 shadow-sm"><div className="mb-6 flex items-center justify-between"><div><p className="font-label-caps text-wellora-surface-tint">ORDER HISTORY</p><h2 id="all-orders-title" className="mt-2 font-headline-md">All Orders</h2></div><Link href="/products" className="font-label-caps text-wellora-surface-tint hover:underline">CONTINUE SHOPPING</Link></div><div className="overflow-x-auto"><table className="w-full min-w-[600px] border-collapse text-left"><thead className="border-b border-wellora-outline-variant/30 text-xs uppercase tracking-wider text-wellora-on-surface-variant"><tr><th className="pb-3">Order ID</th><th className="pb-3">Date</th><th className="pb-3">Status</th><th className="pb-3 text-right">Total</th></tr></thead><tbody className="text-sm">{recentOrders.map((order) => <tr key={order.id} className="border-b border-wellora-outline-variant/20 last:border-0"><td className="py-4 font-medium">{order.id}</td><td className="py-4 text-wellora-on-surface-variant">{order.date}</td><td className="py-4"><span className="rounded-full bg-wellora-primary-fixed px-3 py-1 text-xs text-wellora-on-primary-container">{order.status}</span></td><td className="py-4 text-right font-medium">Tk {order.total.toLocaleString()}</td></tr>)}</tbody></table></div></section>;
+  }
+
+  if (activeSection === 'Wishlist') {
+    return <section aria-labelledby="wishlist-title"><div className="mb-5"><p className="font-label-caps text-wellora-surface-tint">SAVED PRODUCTS</p><h2 id="wishlist-title" className="mt-2 font-headline-md">My Wishlist</h2></div><div className="grid grid-cols-2 gap-5 md:grid-cols-4">{INITIAL_PRODUCTS.slice(0, 6).map((product) => <article key={product.id} className="group"><div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-wellora-surface-container-low"><img src={product.image} alt={product.altText} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" /><button type="button" aria-label={`Toggle ${product.name} wishlist`} onClick={() => onToggleWishlist(product.id)} className="absolute right-3 top-3 rounded-full bg-wellora-surface-container-lowest p-2 text-wellora-surface-tint shadow-sm"><Heart size={16} fill={wishlist.includes(product.id) ? 'currentColor' : 'none'} /></button></div><h3 className="mt-3 text-sm leading-5">{product.name}</h3><p className="mt-1 text-sm font-medium">Tk {product.price.toLocaleString()}</p></article>)}</div></section>;
+  }
+
+  if (activeSection === 'Addresses') {
+    return <section aria-labelledby="addresses-title"><div className="mb-5 flex items-end justify-between"><div><p className="font-label-caps text-wellora-surface-tint">DELIVERY DETAILS</p><h2 id="addresses-title" className="mt-2 font-headline-md">Saved Addresses</h2></div><button type="button" className="rounded-lg bg-wellora-primary px-4 py-2.5 font-label-caps text-wellora-on-primary">ADD ADDRESS</button></div><div className="grid gap-5 md:grid-cols-2">{addresses.map((address) => <article key={address.label} className="rounded-xl border border-wellora-outline-variant/30 bg-wellora-surface-container-lowest p-5 shadow-sm"><div className="flex items-start justify-between"><h3 className="font-headline-sm">{address.label}</h3>{address.preferred && <span className="rounded-full bg-wellora-primary-fixed px-3 py-1 text-xs text-wellora-on-primary-container">Preferred</span>}</div><p className="mt-5 text-sm font-semibold">{address.recipient}</p><p className="mt-1 text-sm leading-6 text-wellora-on-surface-variant">{address.address}</p><p className="mt-2 text-sm text-wellora-on-surface-variant">{address.phone}</p><button type="button" className="mt-5 font-label-caps text-wellora-surface-tint hover:underline">EDIT ADDRESS</button></article>)}</div></section>;
+  }
+
+  return <section aria-labelledby="loyalty-title" className="space-y-6"><div className="rounded-xl bg-wellora-primary-container p-7"><p className="font-label-caps text-wellora-on-primary-container">WELLORA REWARDS</p><h2 id="loyalty-title" className="mt-2 font-headline-md text-wellora-on-primary-container">450 points available</h2><div className="mt-5 h-2 overflow-hidden rounded-full bg-wellora-primary-fixed"><div className="h-full w-3/5 rounded-full bg-wellora-surface-tint" /></div><p className="mt-3 text-sm text-wellora-on-primary-container">150 more points until your next reward.</p></div><div className="grid gap-5 md:grid-cols-3">{[['+120', 'Order #WL-8472', 'Oct 12, 2024'], ['+80', 'Order #WL-8391', 'Sep 28, 2024'], ['-250', 'Redeemed reward', 'Sep 10, 2024']].map(([points, label, date]) => <article key={label} className="rounded-xl border border-wellora-outline-variant/30 bg-wellora-surface-container-lowest p-5"><p className={`font-headline-md ${points.startsWith('-') ? 'text-wellora-error' : 'text-wellora-tertiary'}`}>{points}</p><p className="mt-2 text-sm font-medium">{label}</p><p className="mt-1 text-xs text-wellora-on-surface-variant">{date}</p></article>)}</div></section>;
 }
