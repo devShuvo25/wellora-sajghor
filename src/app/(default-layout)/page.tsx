@@ -12,6 +12,9 @@ import { NotificationToast } from '@/components/NotificationToast';
 import { LandingPage } from '@/components/Home/LandingPage';
 import { RootState } from '@/redux/store';
 
+import { useGetProductsQuery } from '@/redux/api/productsApi';
+import { useDummyFallback } from '@/lib/useDummyFallback';
+
 export function HomePage() {
   const router = useRouter();
   const isAuthenticated = useSelector((state: RootState) => Boolean(state.auth.token));
@@ -20,10 +23,14 @@ export function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState<ProductCategory | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Products from Backend RTK Query (with dummy fallback)
+  const productsQuery = useGetProductsQuery(undefined);
+  const { data: productsData } = useDummyFallback(productsQuery, INITIAL_PRODUCTS);
+  const products: Product[] = Array.isArray(productsData) ? productsData : ((productsData as { products?: Product[] })?.products ?? INITIAL_PRODUCTS);
+
   // Cart State
-  const [products] = useState<Product[]>(INITIAL_PRODUCTS);
   const [cartItems, setCartItems] = useState<CartItem[]>([
-    { product: INITIAL_PRODUCTS[0], quantity: 1 },
+    { product: products[0] || INITIAL_PRODUCTS[0], quantity: 1 },
   ]);
   const [cartOpen, setCartOpen] = useState(false);
 

@@ -4,7 +4,9 @@ import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import { INITIAL_PRODUCTS } from '@/data/mockData';
-import { ProductCategory } from '@/interface/universal';
+import { ProductCategory, Product } from '@/types';
+import { useGetProductsQuery } from '@/redux/api/productsApi';
+import { useDummyFallback } from '@/lib/useDummyFallback';
 
 const categories: ProductCategory[] = ['Cleanser', 'Toner', 'Serum', 'Moisturizer', 'Sunscreen'];
 const skinTypes = ['Dry', 'Sensitive', 'Oily', 'Combination'];
@@ -17,8 +19,12 @@ export default function ProductsPage() {
   const [sort, setSort] = useState<SortOption>('featured');
   const [notice, setNotice] = useState('');
 
+  const productsQuery = useGetProductsQuery(undefined);
+  const { data: rawProducts } = useDummyFallback(productsQuery, INITIAL_PRODUCTS);
+  const sourceProducts: Product[] = Array.isArray(rawProducts) ? rawProducts : ((rawProducts as { products?: Product[] })?.products ?? INITIAL_PRODUCTS);
+
   const products = useMemo(() => {
-    const filtered = INITIAL_PRODUCTS.filter((product) => {
+    const filtered = sourceProducts.filter((product) => {
       const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(product.category);
       const skinMatch = selectedSkinTypes.length === 0 || selectedSkinTypes.some((skin) => product.skinType.some((type) => type.toLowerCase().includes(skin.toLowerCase())));
       return categoryMatch && skinMatch;

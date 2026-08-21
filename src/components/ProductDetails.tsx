@@ -31,7 +31,7 @@ export function ProductDetails({ product }: { product: Product }) {
   const relatedProducts = INITIAL_PRODUCTS.filter((item) => item.id !== product.id).slice(0, 4);
 
   const addToCart = () => setNotice(`${quantity} x ${product.name} added to your cart.`);
-  const openPartnerOrder = () => router.push(isAuthenticated ? '/account' : '/login?next=/account');
+  const openPartnerOrder = () => router.push(isAuthenticated ? '/dashboard/distributor' : '/login?next=/dashboard/distributor');
   const tabContent = {
     Description: product.description,
     'Key Ingredients': `${product.name} features ${product.keyIngredients.join(', ')} for a balanced skincare routine.`,

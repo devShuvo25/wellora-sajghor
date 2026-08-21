@@ -1,21 +1,38 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const protectedRoutes = ['/account'];
+const protectedPrefixes = ['/dashboard', '/account'];
+const authOnlyRoutes = ['/login', '/register', '/forgot-password', '/reset-password', '/verify-otp'];
 
 export function middleware(request: NextRequest) {
-  const isProtectedRoute = protectedRoutes.some((route) =>
-    request.nextUrl.pathname.startsWith(route),
-  );
+  const { pathname } = request.nextUrl;
+  const token = request.cookies.get('token')?.value;
 
-  if (!isProtectedRoute || request.cookies.has('token')) {
-    return NextResponse.next();
+  const isProtectedRoute = protectedPrefixes.some((prefix) => pathname.startsWith(prefix));
+  const isAuthOnlyRoute = authOnlyRoutes.some((route) => pathname.startsWith(route));
+
+  // 1. Unauthenticated user trying to access a protected route -> Redirect to /login
+  if (isProtectedRoute && !token) {
+    const loginUrl = new URL('/login', request.url);
+    loginUrl.searchParams.set('next', pathname);
+    return NextResponse.redirect(loginUrl);
   }
 
-  const loginUrl = new URL('/login', request.url);
-  loginUrl.searchParams.set('next', request.nextUrl.pathname);
-  return NextResponse.redirect(loginUrl);
+  // 2. Authenticated user trying to access login/register -> Redirect to /dashboard
+  if (isAuthOnlyRoute && token) {
+    return NextResponse.redirect(new URL('/dashboard', request.url));
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/account/:path*'],
+  matcher: [
+    '/dashboard/:path*',
+    '/account/:path*',
+    '/login',
+    '/register',
+    '/forgot-password',
+    '/reset-password',
+    '/verify-otp',
+  ],
 };

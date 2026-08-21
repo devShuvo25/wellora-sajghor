@@ -1,4 +1,4 @@
-import { Product, DistributorOrder, DistributorProfile, MarketingAsset, CampaignKit } from '../types';
+import { Product, DistributorOrder, DistributorProfile, MarketingAsset, CampaignKit } from '@/types';
 
 export const INITIAL_PRODUCTS: Product[] = [
   {

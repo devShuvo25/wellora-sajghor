@@ -11,6 +11,7 @@ import { DashboardFooter } from './DashboardFooter';
 import { getRoleDashboardConfig } from '@/config/dashboard.config';
 import { DashboardRole, DashboardTabConfig } from '@/types/dashboard';
 import { NavItem, UserProfile } from '@/types/navigation';
+import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 
 export interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -72,40 +73,42 @@ export function DashboardLayout({
   };
 
   return (
-    <div className="min-h-screen bg-wellora-background text-wellora-on-background flex flex-col selection:bg-wellora-primary-fixed selection:text-wellora-on-primary-fixed-variant">
-      {/* Dynamic Unified Sidebar */}
-      <DashboardSidebar
-        portalTitle={portalTitle}
-        portalSubtitle={portalSubtitle}
-        roleBadge={roleBadge}
-        items={navigationItems}
-        user={user}
-        isOpenMobile={mobileOpen}
-        onCloseMobile={() => setMobileOpen(false)}
-        onLogout={handleLogout}
-        onOpenWithdrawModal={onOpenWithdrawModal}
-      />
-
-      {/* Main Viewport */}
-      <div className="flex flex-1 flex-col min-h-screen md:pl-72 transition-all duration-300">
-        {/* Dynamic Top Header */}
-        <DashboardHeader
+    <ProtectedRoute allowedRoles={[activeConfig.role]}>
+      <div className="min-h-screen bg-wellora-background text-wellora-on-background flex flex-col selection:bg-wellora-primary-fixed selection:text-wellora-on-primary-fixed-variant">
+        {/* Dynamic Unified Sidebar */}
+        <DashboardSidebar
           portalTitle={portalTitle}
+          portalSubtitle={portalSubtitle}
           roleBadge={roleBadge}
+          items={navigationItems}
           user={user}
-          onOpenMobileMenu={() => setMobileOpen(true)}
-          actions={headerActions}
+          isOpenMobile={mobileOpen}
+          onCloseMobile={() => setMobileOpen(false)}
+          onLogout={handleLogout}
+          onOpenWithdrawModal={onOpenWithdrawModal}
         />
 
-        {/* Dynamic Page Content Viewport */}
-        <main className="flex-1 w-full max-w-[1440px] mx-auto p-4 sm:p-6 lg:p-10 animate-fadeIn">
-          {children}
-        </main>
+        {/* Main Viewport */}
+        <div className="flex flex-1 flex-col min-h-screen md:pl-72 transition-all duration-300">
+          {/* Dynamic Top Header */}
+          <DashboardHeader
+            portalTitle={portalTitle}
+            roleBadge={roleBadge}
+            user={user}
+            onOpenMobileMenu={() => setMobileOpen(true)}
+            actions={headerActions}
+          />
 
-        {/* Dashboard Footer */}
-        {showFooter && <DashboardFooter role={activeConfig.role} />}
+          {/* Dynamic Page Content Viewport */}
+          <main className="flex-1 w-full max-w-[1440px] mx-auto p-4 sm:p-6 lg:p-10 animate-fadeIn">
+            {children}
+          </main>
+
+          {/* Dashboard Footer */}
+          {showFooter && <DashboardFooter role={activeConfig.role} />}
+        </div>
       </div>
-    </div>
+    </ProtectedRoute>
   );
 }
 
