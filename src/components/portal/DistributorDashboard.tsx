@@ -1,5 +1,7 @@
+'use client';
+
 import React, { useState } from 'react';
-import { Product, DistributorOrder, DistributorProfile, OrderChannel, OrderStatus } from '../../types';
+import { Product, DistributorOrder, DistributorProfile, OrderChannel, OrderStatus } from '@/types';
 
 interface DistributorDashboardProps {
   distributor: DistributorProfile;

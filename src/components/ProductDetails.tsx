@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { INITIAL_PRODUCTS } from '@/data/mockData';
 import { RootState } from '@/redux/store';
-import { Product } from '../types';
+import { Product } from '@/types';
 
 const detailTabs = ['Description', 'Key Ingredients', 'How to Use', 'Suitable For'] as const;
 

@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { DistributorOrder } from '../../types';
+import { DistributorOrder } from '@/types';
 
 interface TrackingModalProps {
   order: DistributorOrder | null;

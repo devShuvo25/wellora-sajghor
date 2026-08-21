@@ -1,9 +1,10 @@
-export type DashboardRole = 'admin' | 'partner' | 'customer';
+export type DashboardRole = 'admin' | 'distributor' | 'partner' | 'customer';
 
 export const dashboardRoutes: Record<DashboardRole, string> = {
   admin: '/dashboard/admin',
-  partner: '/account',
-  customer: '/account/custommer',
+  distributor: '/dashboard/distributor',
+  partner: '/dashboard/distributor',
+  customer: '/dashboard/customer',
 };
 
 export function normalizeDashboardRole(role?: string | null): DashboardRole {
@@ -14,7 +15,7 @@ export function normalizeDashboardRole(role?: string | null): DashboardRole {
   }
 
   if (normalizedRole === 'partner' || normalizedRole === 'distributor') {
-    return 'partner';
+    return 'distributor';
   }
 
   return 'customer';

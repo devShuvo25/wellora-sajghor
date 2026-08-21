@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { AppView, DistributorProfile } from '../../types';
+import { AppView, DistributorProfile } from '@/types';
 
 interface DistributorSidebarProps {
   currentView: AppView;

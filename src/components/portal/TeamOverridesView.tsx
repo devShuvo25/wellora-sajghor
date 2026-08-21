@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { DistributorProfile } from '../../types';
+import { DistributorProfile } from '@/types';
 
 interface TeamOverridesViewProps {
   distributor: DistributorProfile;

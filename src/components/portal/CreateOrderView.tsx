@@ -1,5 +1,7 @@
+'use client';
+
 import React, { useState } from 'react';
-import { Product, DistributorOrder, OrderChannel } from '../../types';
+import { Product, DistributorOrder, OrderChannel } from '@/types';
 
 interface CreateOrderViewProps {
   products: Product[];

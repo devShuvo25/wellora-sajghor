@@ -1,5 +1,7 @@
+'use client';
+
 import React, { useState } from 'react';
-import { DistributorProfile } from '../../types';
+import { DistributorProfile } from '@/types';
 
 interface WalletModalProps {
   isOpen: boolean;

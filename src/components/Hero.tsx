@@ -1,5 +1,6 @@
+'use client';
+
 import React from 'react';
-import { ArrowRight, BadgeCheck, Heart, Leaf, ShieldCheck, Truck } from 'lucide-react';
 
 interface HeroProps {
   onExploreClick: () => void;

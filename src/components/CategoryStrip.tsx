@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { ProductCategory } from '../types';
+import { ProductCategory } from '@/types';
 
 interface CategoryStripProps {
   selectedCategory: ProductCategory | null;

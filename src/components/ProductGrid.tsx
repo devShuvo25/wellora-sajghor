@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { Product, ProductCategory } from '../types';
+import { Product, ProductCategory } from '@/types';
 
 interface ProductGridProps {
   products: Product[];

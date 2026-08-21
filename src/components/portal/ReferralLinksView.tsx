@@ -1,5 +1,7 @@
+'use client';
+
 import React, { useState } from 'react';
-import { DistributorProfile, Product } from '../../types';
+import { DistributorProfile, Product } from '@/types';
 
 interface ReferralLinksViewProps {
   distributor: DistributorProfile;
@@ -111,6 +113,21 @@ export const ReferralLinksView: React.FC<ReferralLinksViewProps> = ({
                   placeholder="e.g. tiktok_march"
                   className="w-full px-3 py-2 bg-wellora-background border border-wellora-outline-variant rounded-lg text-wellora-on-background"
                 />
+              </div>
+
+              <div>
+                <label className="block font-label-caps text-[11px] text-wellora-on-surface-variant uppercase mb-1">
+                  Customer Promo Discount
+                </label>
+                <select
+                  value={discountPercent}
+                  onChange={(e) => setDiscountPercent(e.target.value)}
+                  className="w-full px-3 py-2 bg-wellora-background border border-wellora-outline-variant rounded-lg text-wellora-on-background"
+                >
+                  <option value="5">5% Discount</option>
+                  <option value="10">10% Discount (Recommended)</option>
+                  <option value="15">15% Special Partner Promo</option>
+                </select>
               </div>
             </div>
 

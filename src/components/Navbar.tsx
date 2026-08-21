@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { ProductCategory } from '../types';
+import { ProductCategory } from '@/types';
 import { useAppSelector } from '@/redux/hooks';
 import { resolveDashboardRoute } from '@/lib/dashboardAccess';
 
@@ -31,7 +31,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const accountRoute = resolveDashboardRoute(userRole);
   const isHomeActive = pathname === '/';
   const isShopActive = pathname.startsWith('/products');
-  const isPartnerActive = pathname.startsWith('/account');
+  const isPartnerActive = pathname.startsWith('/dashboard') || pathname.startsWith('/account');
   return (
     <>
       {/* Announcement Bar */}

@@ -1,5 +1,7 @@
+'use client';
+
 import React from 'react';
-import { DistributorProfile } from '../../types';
+import { DistributorProfile } from '@/types';
 
 interface SalesAnalyticsViewProps {
   distributor: DistributorProfile;
@@ -35,10 +37,10 @@ export const SalesAnalyticsView: React.FC<SalesAnalyticsViewProps> = ({
         </button>
         <div>
           <h2 className="font-headline-md text-xl sm:text-2xl font-bold text-wellora-on-background">
-            Sales & Channel Analytics
+            Sales & Channel Analytics ({distributor?.name || 'Partner'})
           </h2>
           <p className="font-body-sm text-xs sm:text-sm text-wellora-on-surface-variant mt-0.5">
-            Detailed performance tracking across social channels and best-converting skincare formulations.
+            Detailed performance tracking across social channels and best-converting skincare formulations ({distributor?.tier || 'Pro Partner'}).
           </p>
         </div>
       </div>

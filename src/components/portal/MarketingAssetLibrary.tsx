@@ -1,6 +1,8 @@
+'use client';
+
 import React, { useState } from 'react';
-import { MarketingAsset, CampaignKit, AssetCategory, AssetType } from '../../types';
-import { CAMPAIGN_KITS, MARKETING_ASSETS } from '../../data/mockData';
+import { MarketingAsset, CampaignKit, AssetCategory, AssetType } from '@/types';
+import { CAMPAIGN_KITS, MARKETING_ASSETS } from '@/data/mockData';
 
 interface MarketingAssetLibraryProps {
   onToast: (msg: string) => void;

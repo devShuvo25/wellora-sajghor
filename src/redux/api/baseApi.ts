@@ -49,7 +49,22 @@ export const baseApi = createApi({
     "Chat",
     "Jobs",
     "Proposals",
-    "Notifications"
+    "Notifications",
+    // Wellora e-commerce domains
+    "Products",
+    "Product",
+    "Orders",
+    "Order",
+    "Distributor",
+    "DistributorWallet",
+    "DistributorAnalytics",
+    "Team",
+    "Admin",
+    "AdminStats",
+    "MarketingKits",
+    "Wishlist",
+    "Referrals",
+    "Loyalty",
   ],
   endpoints: (builder) => ({}),
 });
