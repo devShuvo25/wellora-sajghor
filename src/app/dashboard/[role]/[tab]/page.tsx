@@ -11,6 +11,7 @@ interface DynamicRoleTabPageProps {
 const adminTabs: AdminTabSlug[] = [
   'orders',
   'product-catalog',
+  'categories',
   'distributors',
   'marketing-kits',
   'settings',
