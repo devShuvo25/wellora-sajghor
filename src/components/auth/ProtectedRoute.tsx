@@ -18,6 +18,7 @@ export function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) 
   const { token, user } = useAppSelector((state) => state.auth);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [checking, setChecking] = useState(true);
+  console.log('ProtectedRoute: token:', token, 'user:', user, 'allowedRoles:', allowedRoles);
 
   useEffect(() => {
     const activeToken = token || Cookies.get('token');

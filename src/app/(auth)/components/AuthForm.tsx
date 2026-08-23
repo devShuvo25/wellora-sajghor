@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { useState, Suspense } from 'react';
+import React, { useState, Suspense, useEffect } from 'react';
 import { useForm, type Resolver } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -16,6 +16,7 @@ import {
   useResetPasswordMutation,
 } from '@/redux/api/authApi';
 import { setCredentials } from '@/redux/features/authSlice';
+import { resolveDashboardRoute } from '@/lib/dashboardAccess';
 
 type AuthMode = 'login' | 'register' | 'forgot' | 'change' | 'reset';
 type AuthUser = { id: string; email: string; role: string; name?: string };
@@ -113,7 +114,7 @@ function Field({
         type={type}
         inputMode={inputMode}
         {...register(name)}
-        className="mt-1 w-full rounded-lg border border-wellora-outline-variant px-3 py-2.5 outline-none focus:border-wellora-surface-tint"
+        className="mt-1 w-full rounded-lg border border-wellora-outline-variant px-3 py-2.5 outline-none focus:border-wellora-surface-tint text-sm bg-wellora-surface-container-lowest"
       />
       {error && <span className="mt-1 block text-xs text-wellora-error">{error}</span>}
     </label>
@@ -125,106 +126,130 @@ function AuthFormInner({ mode }: { mode: AuthMode }) {
   const searchParams = useSearchParams();
   const dispatch = useDispatch();
   const [notice, setNotice] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [login] = useLoginUserMutation();
   const [register] = useRegisterUserMutation();
   const [forgot] = useForgotPasswordMutation();
   const [change] = useChangePasswordMutation();
   const [reset] = useResetPasswordMutation();
+  
   const schema = schemas[mode];
   const {
     register: bind,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(schema) as Resolver<FormValues>,
   });
   const content = copy[mode];
-  const nextPath = searchParams?.get('next') || '/';
+  
+  const nextParam = searchParams?.get('next');
+  const registered = searchParams?.get('registered') === 'true';
+  const queryEmail = searchParams?.get('email');
+
+  useEffect(() => {
+    if (registered) {
+      setNotice('Email verified successfully! Please sign in with your backend credentials.');
+    }
+    if (queryEmail) {
+      setValue('email', queryEmail);
+    }
+  }, [registered, queryEmail, setValue]);
 
   const onSubmit = async (values: FormValues) => {
     setNotice('');
+    setErrorMessage('');
     try {
       if (mode === 'login') {
         const response = (await login({ data: values }).unwrap()) as {
           token?: string;
           accessToken?: string;
+          data?: { token?: string; accessToken?: string; user?: AuthUser };
           user?: AuthUser;
         };
-        const authToken = response.token || response.accessToken || 'wellora-demo-token';
-        const authUserData = response.user || {
-          id: 'demo-user',
-          email: values.email || '',
-          role: 'distributor',
-          name: 'Wellora User',
-        };
+
+        const authToken = response.token || response.accessToken || response.data?.token || response.data?.accessToken;
+        const authUserData = response.user || response.data?.user;
+
+        if (!authToken) {
+          throw new Error('Authentication succeeded but no token was returned from server.');
+        }
+
         dispatch(setCredentials({ token: authToken, user: authUserData }));
         Cookies.set('token', authToken, { expires: 7, sameSite: 'lax' });
-        router.push(nextPath);
+
+        const targetRoute =
+          nextParam && nextParam !== '/'
+            ? decodeURIComponent(nextParam)
+            : resolveDashboardRoute(authUserData?.role);
+
+        router.push(targetRoute);
         return;
       }
+
       if (mode === 'register') {
         await register({ data: values }).unwrap();
         if (typeof window !== 'undefined') {
           sessionStorage.setItem('wellora-pending-email', values.email || '');
         }
+        const targetNext = nextParam || '/dashboard/customer';
         router.push(
           `/verify-otp?email=${encodeURIComponent(values.email || '')}&next=${encodeURIComponent(
-            nextPath
+            targetNext
           )}`
         );
         return;
       }
+
       if (mode === 'forgot') {
         await forgot({ data: values }).unwrap();
-        setNotice('Reset instructions sent. Demo OTP: 123456.');
+        setNotice('Reset instructions sent. Please check your email.');
         return;
       }
+
       if (mode === 'change') {
         await change({ data: values }).unwrap();
         setNotice('Password updated successfully.');
         return;
       }
-      await reset({ data: values }).unwrap();
-      setNotice('Password reset successfully.');
-      router.push('/login');
-    } catch {
-      if (mode === 'register') {
-        if (typeof window !== 'undefined') {
-          sessionStorage.setItem('wellora-pending-email', values.email || '');
-        }
-        router.push(
-          `/verify-otp?email=${encodeURIComponent(values.email || '')}&next=${encodeURIComponent(
-            nextPath
-          )}`
-        );
-      } else if (mode === 'login') {
-        dispatch(
-          setCredentials({
-            token: 'wellora-demo-token',
-            user: { id: 'demo-user', email: values.email || '', role: 'distributor', name: 'Demo User' },
-          })
-        );
-        Cookies.set('token', 'wellora-demo-token', { expires: 7, sameSite: 'lax' });
-        router.push(nextPath);
-      } else {
-        setNotice(
-          mode === 'forgot'
-            ? 'Demo mode: use OTP 123456 to continue.'
-            : 'Demo mode completed this action successfully.'
-        );
+
+      if (mode === 'reset') {
+        await reset({ data: values }).unwrap();
+        setNotice('Password reset successfully.');
+        router.push('/login');
+        return;
       }
+    } catch (err: unknown) {
+      const errorData = err as { data?: { message?: string }; message?: string };
+      setErrorMessage(
+        errorData?.data?.message || errorData?.message || 'Authentication failed. Please verify your credentials and backend server.'
+      );
     }
   };
 
   return (
-    <main className="min-h-screen bg-wellora-background px-4 py-16 text-wellora-on-background">
-      <section className="mx-auto max-w-md rounded-2xl border border-wellora-outline-variant/50 bg-wellora-surface-container-lowest p-8 shadow-sm">
-        <p className="text-xs uppercase tracking-[0.2em] text-wellora-surface-tint">Wellora</p>
+    <main className="min-h-screen bg-wellora-background px-4 py-16 text-wellora-on-background flex items-center justify-center">
+      <section className="w-full max-w-md rounded-2xl border border-wellora-outline-variant/50 bg-wellora-surface-container-lowest p-8 shadow-sm">
+        <p className="text-xs uppercase font-bold tracking-[0.2em] text-wellora-surface-tint">Wellora</p>
         <h1 className="mt-3 text-3xl font-bold">{content.title}</h1>
         <p className="mt-2 text-sm text-wellora-on-primary-fixed-variant">
           {content.description}
         </p>
-        <form className="mt-8 space-y-4" onSubmit={handleSubmit(onSubmit)}>
+
+        {notice && (
+          <div role="status" className="mt-4 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-xs font-semibold text-emerald-800">
+            {notice}
+          </div>
+        )}
+
+        {errorMessage && (
+          <div role="alert" className="mt-4 rounded-xl border border-red-300 bg-red-50 px-4 py-3 text-xs font-semibold text-red-800">
+            {errorMessage}
+          </div>
+        )}
+
+        <form className="mt-6 space-y-4" onSubmit={handleSubmit(onSubmit)}>
           {mode === 'register' && (
             <Field label="Name" name="name" register={bind} error={errors.name?.message} />
           )}
@@ -237,55 +262,73 @@ function AuthFormInner({ mode }: { mode: AuthMode }) {
               error={errors.email?.message}
             />
           )}
-          {mode === 'reset' && (
-            <Field
-              label="OTP"
-              name="otp"
-              inputMode="numeric"
-              register={bind}
-              error={errors.otp?.message}
-            />
-          )}
           {mode === 'change' && (
             <Field
-              label="Current password"
+              label="Current Password"
               name="currentPassword"
               type="password"
               register={bind}
               error={errors.currentPassword?.message}
             />
           )}
+          {mode === 'reset' && (
+            <Field
+              label="OTP Code"
+              name="otp"
+              inputMode="numeric"
+              register={bind}
+              error={errors.otp?.message}
+            />
+          )}
           {mode !== 'forgot' && (
             <Field
-              label="Password"
+              label={mode === 'change' ? 'New Password' : 'Password'}
               name="password"
               type="password"
               register={bind}
               error={errors.password?.message}
             />
           )}
-          {['register', 'change', 'reset'].includes(mode) && (
+          {(mode === 'register' || mode === 'change' || mode === 'reset') && (
             <Field
-              label="Confirm password"
+              label="Confirm Password"
               name="confirmPassword"
               type="password"
               register={bind}
               error={errors.confirmPassword?.message}
             />
           )}
+
           <button
             disabled={isSubmitting}
-            type="submit"
-            className="w-full rounded-lg bg-wellora-surface-tint px-4 py-3 text-sm font-semibold text-wellora-on-primary disabled:opacity-60 cursor-pointer"
+            className="w-full rounded-xl bg-wellora-surface-tint px-4 py-3 text-xs font-bold text-wellora-on-primary hover:bg-wellora-on-primary-fixed-variant transition-colors disabled:opacity-60 cursor-pointer shadow-2xs"
           >
-            {isSubmitting ? 'Please wait...' : content.submit}
+            {isSubmitting ? 'Processing...' : content.submit}
           </button>
         </form>
-        {notice && <p className="mt-4 text-sm text-wellora-surface-tint">{notice}</p>}
-        <div className="mt-6 flex justify-between text-sm text-wellora-surface-tint">
-          <Link href="/">Continue shopping</Link>
-          {mode === 'login' && <Link href="/forgot-password">Forgot password?</Link>}
-          {mode === 'login' && <Link href="/register">Register</Link>}
+
+        <div className="mt-6 flex flex-col gap-2 text-center text-xs text-wellora-on-surface-variant">
+          {mode === 'login' && (
+            <>
+              <Link href="/forgot-password" className="hover:text-wellora-surface-tint hover:underline">
+                Forgot password?
+              </Link>
+              <p>
+                Don't have an account?{' '}
+                <Link href={`/register${nextParam ? `?next=${encodeURIComponent(nextParam)}` : ''}`} className="font-bold text-wellora-surface-tint hover:underline">
+                  Sign up
+                </Link>
+              </p>
+            </>
+          )}
+          {mode === 'register' && (
+            <p>
+              Already have an account?{' '}
+              <Link href={`/login${nextParam ? `?next=${encodeURIComponent(nextParam)}` : ''}`} className="font-bold text-wellora-surface-tint hover:underline">
+                Sign in
+              </Link>
+            </p>
+          )}
         </div>
       </section>
     </main>
@@ -296,8 +339,8 @@ export function AuthForm({ mode }: { mode: AuthMode }) {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-wellora-background">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-wellora-surface-tint border-t-transparent"></div>
+        <div className="min-h-screen bg-wellora-background flex items-center justify-center">
+          <p className="text-xs text-wellora-on-surface-variant">Loading page...</p>
         </div>
       }
     >
