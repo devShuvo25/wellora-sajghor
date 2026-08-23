@@ -13,6 +13,7 @@ import {
   User,
   Heart,
   MapPin,
+  Tags,
   Sparkles,
 } from 'lucide-react';
 import { RoleDashboardConfig, DashboardRole } from '@/types/dashboard';
@@ -59,6 +60,15 @@ export const DASHBOARD_CONFIGS: Record<DashboardRole, RoleDashboardConfig> = {
         eyebrow: 'PRODUCT CATALOG',
         description: 'Manage pricing, stock levels, variants, and product visibility across the storefront.',
         actionLabel: 'Add Product',
+      },
+      {
+        id: 'categories',
+        label: 'Categories',
+        href: '/dashboard/admin/categories',
+        icon: Tags,
+        eyebrow: 'CATEGORY MANAGEMENT',
+        description: 'Manage skincare product categories, slugs, descriptions, and category images.',
+        actionLabel: 'Add Category',
       },
       {
         id: 'distributors',

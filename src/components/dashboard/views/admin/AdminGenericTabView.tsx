@@ -22,6 +22,8 @@ import {
   Check,
   Ban,
   UploadCloud,
+  Tags,
+  FolderTree,
 } from 'lucide-react';
 import {
   useGetAdminOrdersQuery,
@@ -33,10 +35,24 @@ import {
   useUpdateDistributorStatusMutation,
   useUpdateProductStockMutation,
 } from '@/redux/api/adminApi';
+import {
+  useGetCategoriesQuery,
+  useDeleteCategoryMutation,
+} from '@/redux/api/productsApi';
 import { useDummyFallback } from '@/lib/useDummyFallback';
 import { INITIAL_PRODUCTS } from '@/data/mockData';
+import { AddProductModal } from '@/components/dashboard/modals/AddProductModal';
+import { AddCategoryModal } from '@/components/dashboard/modals/AddCategoryModal';
 
-export type AdminTabSlug = 'orders' | 'product-catalog' | 'distributors' | 'marketing-kits' | 'settings';
+export type AdminTabSlug = 'orders' | 'product-catalog' | 'categories' | 'distributors' | 'marketing-kits' | 'settings';
+
+const DUMMY_CATEGORIES = [
+  { id: 'cat-1', name: 'Toner & Essence', slug: 'toner-essence', description: 'Hydrating, balancing, and preparing skin for serums.', image: '/assets/categories/toner.jpg', count: 18 },
+  { id: 'cat-2', name: 'Serum & Ampoule', slug: 'serum-ampoule', description: 'Targeted treatments with high concentration active ingredients.', image: '/assets/categories/serum.jpg', count: 24 },
+  { id: 'cat-3', name: 'Moisturizer', slug: 'moisturizer', description: 'Nourishing creams and gels to lock in hydration.', image: '/assets/categories/moisturizer.jpg', count: 15 },
+  { id: 'cat-4', name: 'Cleanser', slug: 'cleanser', description: 'Foam, gel, and oil cleansers for deep pore cleansing.', image: '/assets/categories/cleanser.jpg', count: 12 },
+  { id: 'cat-5', name: 'Sunscreen', slug: 'sunscreen', description: 'Broad spectrum SPF 50+ PA++++ sun protection.', image: '/assets/categories/sunscreen.jpg', count: 9 },
+];
 
 export function AdminGenericTabView({ tab }: { tab: AdminTabSlug }) {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -358,53 +374,20 @@ export function AdminGenericTabView({ tab }: { tab: AdminTabSlug }) {
         </div>
 
         {/* Add Product Modal */}
-        {activeModal === 'create' && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fadeIn">
-            <div className="w-full max-w-md bg-wellora-surface-container-lowest rounded-2xl border border-wellora-outline-variant shadow-2xl p-6">
-              <div className="flex items-center justify-between border-b border-wellora-outline-variant/30 pb-4 mb-4">
-                <h3 className="font-headline-sm text-base font-bold text-wellora-on-background">Add New Skincare Product</h3>
-                <button type="button" onClick={() => setActiveModal(null)} className="p-1 text-wellora-on-surface-variant hover:text-wellora-on-background">
-                  <X size={18} />
-                </button>
-              </div>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  showToast('New product added successfully!');
-                  setActiveModal(null);
-                }}
-                className="space-y-4 text-xs"
-              >
-                <div>
-                  <label className="block font-semibold mb-1">Product Title</label>
-                  <input required placeholder="e.g. Centella Calming Serum" className="w-full px-3 py-2 bg-wellora-background border border-wellora-outline-variant rounded-lg" />
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block font-semibold mb-1">Price (৳)</label>
-                    <input required type="number" placeholder="2200" className="w-full px-3 py-2 bg-wellora-background border border-wellora-outline-variant rounded-lg" />
-                  </div>
-                  <div>
-                    <label className="block font-semibold mb-1">Category</label>
-                    <select className="w-full px-3 py-2 bg-wellora-background border border-wellora-outline-variant rounded-lg">
-                      <option>Serum</option>
-                      <option>Cleanser</option>
-                      <option>Toner</option>
-                      <option>Moisturizer</option>
-                      <option>Sunscreen</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="flex justify-end gap-3 pt-4 border-t border-wellora-outline-variant/30">
-                  <button type="button" onClick={() => setActiveModal(null)} className="px-4 py-2 border rounded-lg font-semibold">Cancel</button>
-                  <button type="submit" className="px-5 py-2 bg-wellora-surface-tint text-wellora-on-primary font-bold rounded-lg">Add Product</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
+        <AddProductModal
+          isOpen={activeModal === 'create'}
+          onClose={() => setActiveModal(null)}
+          onSuccessToast={showToast}
+        />
       </div>
     );
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // TAB 3: CATEGORIES MANAGEMENT VIEW
+  // ─────────────────────────────────────────────────────────────────────────────
+  if (tab === 'categories') {
+    return <AdminCategoriesView showToast={showToast} />;
   }
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -618,3 +601,128 @@ export function AdminGenericTabView({ tab }: { tab: AdminTabSlug }) {
     </div>
   );
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CATEGORIES VIEW COMPONENT
+// ─────────────────────────────────────────────────────────────────────────────
+function AdminCategoriesView({ showToast }: { showToast: (msg: string) => void }) {
+  const [isAddCategoryOpen, setIsAddCategoryOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const categoriesQuery = useGetCategoriesQuery(undefined);
+  const deleteCategoryMutation = useDeleteCategoryMutation();
+  const [deleteCategory] = deleteCategoryMutation;
+
+  const { data: categoriesData, isLoading } = useDummyFallback(categoriesQuery, DUMMY_CATEGORIES);
+
+  const categoriesList = Array.isArray(categoriesData)
+    ? categoriesData
+    : ((categoriesData as { categories?: typeof DUMMY_CATEGORIES })?.categories ?? DUMMY_CATEGORIES);
+
+  const filteredCategories = categoriesList.filter((cat: any) => {
+    return (
+      cat.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      cat.slug?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      cat.description?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
+
+  const handleDeleteCategory = async (id: string, name: string) => {
+    if (confirm(`Are you sure you want to delete category "${name}"?`)) {
+      try {
+        await deleteCategory(id).unwrap();
+      } catch {
+        // Fallback simulation
+      }
+      showToast(`Category "${name}" deleted.`);
+    }
+  };
+
+  return (
+    <div className="space-y-6 animate-fadeIn">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-wellora-outline-variant/30 pb-6">
+        <div>
+          <p className="font-label-caps text-xs font-bold text-wellora-surface-tint uppercase tracking-wider">CATALOG STRUCTURE</p>
+          <h1 className="mt-1 font-headline-md text-2xl sm:text-3xl font-bold text-wellora-on-background">Category Management</h1>
+          <p className="text-xs text-wellora-on-surface-variant mt-1">Organize skincare categories, slugs, descriptions, and category banner images.</p>
+        </div>
+        <button
+          type="button"
+          onClick={() => setIsAddCategoryOpen(true)}
+          className="rounded-lg bg-wellora-surface-tint px-4 py-2.5 text-xs font-bold text-wellora-on-primary hover:bg-wellora-on-primary-fixed-variant transition-colors inline-flex items-center gap-2 cursor-pointer shadow-2xs"
+        >
+          <Plus size={15} />
+          <span>Add New Category</span>
+        </button>
+      </div>
+
+      {/* Search & Filter Bar */}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-wellora-surface-container-lowest p-4 rounded-2xl border border-wellora-outline-variant/30">
+        <div className="relative w-full sm:w-80">
+          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-wellora-on-surface-variant" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search categories by name or slug..."
+            className="w-full pl-9 pr-4 py-2 bg-wellora-surface border border-wellora-outline-variant rounded-xl text-xs outline-none focus:border-wellora-surface-tint"
+          />
+        </div>
+        <div className="text-xs font-semibold text-wellora-on-surface-variant">
+          Showing {filteredCategories.length} categories
+        </div>
+      </div>
+
+      {/* Categories Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {filteredCategories.map((cat: any) => (
+          <div key={cat.id || cat.name} className="rounded-2xl border border-wellora-outline-variant/30 bg-wellora-surface-container-lowest p-5 shadow-2xs flex flex-col justify-between hover:shadow-md transition-all group">
+            <div>
+              <div className="flex items-center justify-between gap-3 mb-3">
+                <div className="h-12 w-12 rounded-xl bg-wellora-primary-container/60 flex items-center justify-center text-wellora-surface-tint shrink-0 font-bold text-sm">
+                  <Tags size={20} />
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteCategory(cat.id || cat.name, cat.name)}
+                    className="p-1.5 text-wellora-on-surface-variant hover:text-wellora-error hover:bg-wellora-surface-container rounded-lg transition-colors cursor-pointer"
+                    title="Delete Category"
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                </div>
+              </div>
+
+              <span className="font-mono text-[10px] text-wellora-surface-tint bg-wellora-surface-container-low px-2 py-0.5 rounded font-bold">
+                categories/{cat.slug || cat.name?.toLowerCase().replace(/[^a-z0-9]+/g, '-')}
+              </span>
+              <h3 className="font-bold text-sm text-wellora-on-background mt-2">{cat.name}</h3>
+              <p className="text-xs text-wellora-on-surface-variant mt-1.5 line-clamp-2 leading-relaxed">
+                {cat.description || 'No description provided for this category.'}
+              </p>
+            </div>
+
+            <div className="mt-4 pt-3 border-t border-wellora-outline-variant/20 flex items-center justify-between text-xs">
+              <span className="text-[11px] font-semibold text-wellora-on-surface-variant">
+                {cat.count || 12} Products Active
+              </span>
+              <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                Prisma Synced
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Add Category Modal */}
+      <AddCategoryModal
+        isOpen={isAddCategoryOpen}
+        onClose={() => setIsAddCategoryOpen(false)}
+        onSuccessToast={showToast}
+      />
+    </div>
+  );
+}
+

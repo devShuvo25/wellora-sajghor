@@ -6,10 +6,11 @@ export const productsApi = baseApi.injectEndpoints({
     getProducts: builder.query({
       query: (params?: {
         category?: string;
-        search?: string;
+        skinType?: string;
+        searchTerm?: string;
         page?: number;
         limit?: number;
-        sort?: string;
+        sortBy?: string;
       }) => ({
         url: "/products",
         method: "GET",
@@ -74,6 +75,41 @@ export const productsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: (result, error, { productId }) => [{ type: "Product", id: productId }],
     }),
+
+    // 8. Categories CRUD
+    getCategories: builder.query({
+      query: () => ({
+        url: "/categories",
+        method: "GET",
+      }),
+      providesTags: ["Categories"],
+    }),
+
+    createCategory: builder.mutation({
+      query: (data: { name: string; slug?: string; description?: string; image?: string } | FormData) => ({
+        url: "/categories",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Categories"],
+    }),
+
+    updateCategory: builder.mutation({
+      query: ({ id, data }: { id: string; data: { name?: string; slug?: string; description?: string; image?: string } | FormData }) => ({
+        url: `/categories/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["Categories"],
+    }),
+
+    deleteCategory: builder.mutation({
+      query: (id: string) => ({
+        url: `/categories/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Categories"],
+    }),
   }),
 });
 
@@ -85,4 +121,8 @@ export const {
   useDeleteProductMutation,
   useGetProductReviewsQuery,
   useSubmitProductReviewMutation,
+  useGetCategoriesQuery,
+  useCreateCategoryMutation,
+  useUpdateCategoryMutation,
+  useDeleteCategoryMutation,
 } = productsApi;

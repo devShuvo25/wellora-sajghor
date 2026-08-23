@@ -25,6 +25,7 @@ import {
 import { useGetAdminDashboardStatsQuery, useGetAdminOrdersQuery, useUpdateAdminOrderStatusMutation } from '@/redux/api/adminApi';
 import { useDummyFallback } from '@/lib/useDummyFallback';
 import { INITIAL_PRODUCTS } from '@/data/mockData';
+import { AddProductModal } from '@/components/dashboard/modals/AddProductModal';
 
 // ─── Mock Fallbacks ────────────────────────────────────────────────────────────
 const DUMMY_STATS = {
@@ -441,73 +442,11 @@ export function AdminOverviewView() {
       </div>
 
       {/* Add Product Modal */}
-      {isAddProductOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fadeIn">
-          <div className="w-full max-w-md bg-wellora-surface-container-lowest rounded-2xl border border-wellora-outline-variant shadow-2xl p-6">
-            <div className="flex items-center justify-between border-b border-wellora-outline-variant/30 pb-4 mb-4">
-              <h3 className="font-headline-sm text-base font-bold text-wellora-on-background">
-                Add New Skincare Product
-              </h3>
-              <button
-                type="button"
-                onClick={() => setIsAddProductOpen(false)}
-                className="p-1 text-wellora-on-surface-variant hover:text-wellora-on-background"
-              >
-                <X size={18} />
-              </button>
-            </div>
-            <form onSubmit={handleAddProductSubmit} className="space-y-4 text-xs">
-              <div>
-                <label className="block font-semibold text-wellora-on-background mb-1">Product Title</label>
-                <input
-                  type="text"
-                  required
-                  value={newProductName}
-                  onChange={(e) => setNewProductName(e.target.value)}
-                  placeholder="e.g. Rice Water Probiotic Toner"
-                  className="w-full px-3 py-2 bg-wellora-background border border-wellora-outline-variant rounded-lg"
-                />
-              </div>
-              <div>
-                <label className="block font-semibold text-wellora-on-background mb-1">Price (BDT ৳)</label>
-                <input
-                  type="number"
-                  required
-                  value={newProductPrice}
-                  onChange={(e) => setNewProductPrice(e.target.value)}
-                  placeholder="2400"
-                  className="w-full px-3 py-2 bg-wellora-background border border-wellora-outline-variant rounded-lg"
-                />
-              </div>
-              <div>
-                <label className="block font-semibold text-wellora-on-background mb-1">Category</label>
-                <select className="w-full px-3 py-2 bg-wellora-background border border-wellora-outline-variant rounded-lg">
-                  <option>Serum</option>
-                  <option>Cleanser</option>
-                  <option>Toner</option>
-                  <option>Moisturizer</option>
-                  <option>Sunscreen</option>
-                </select>
-              </div>
-              <div className="flex justify-end gap-3 pt-4 border-t border-wellora-outline-variant/30">
-                <button
-                  type="button"
-                  onClick={() => setIsAddProductOpen(false)}
-                  className="px-4 py-2 rounded-lg border border-wellora-outline-variant font-semibold"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-5 py-2 rounded-lg bg-wellora-surface-tint text-wellora-on-primary font-bold hover:bg-wellora-on-primary-fixed-variant"
-                >
-                  Save Product
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+      <AddProductModal
+        isOpen={isAddProductOpen}
+        onClose={() => setIsAddProductOpen(false)}
+        onSuccessToast={showToast}
+      />
 
       {/* Invite Partner Modal */}
       {isInvitePartnerOpen && (

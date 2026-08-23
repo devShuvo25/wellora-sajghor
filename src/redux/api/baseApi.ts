@@ -63,6 +63,7 @@ export const baseApi = createApi({
     "Wishlist",
     "Referrals",
     "Loyalty",
+    "Categories",
   ],
   endpoints: (builder) => ({}),
 });

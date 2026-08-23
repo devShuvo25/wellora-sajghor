@@ -1,5 +1,12 @@
-export type ProductCategory = 'Cleanser' | 'Toner' | 'Serum' | 'Moisturizer' | 'Sunscreen';
-
+export type ProductCategory = {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string; // Optional (যদি কখনো না থাকে)
+  image?: string;       // Optional
+  createdAt: string;    // Date string (ISO format)
+  updatedAt?: string;   // Optional (সাধারণত DB তে থাকে)
+};
 export interface Product {
   id: string;
   brand: string;
